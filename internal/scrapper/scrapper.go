@@ -47,9 +47,8 @@ func GetFeatureCollection(bbox BoundingBox, querier Querier) *FeatureCollection 
 	return &featureCollection
 }
 
-func ExportFeatureCollection(featureCollection *FeatureCollection) {
-	fileName := "data/example.gpx"
-	f, err := os.Create(fileName)
+func ExportFeatureCollection(featureCollection *FeatureCollection, outputFile string) {
+	f, err := os.Create(outputFile)
 	if err != nil {
 		fmt.Printf("Error creating file: %v\n", err)
 		return
@@ -64,5 +63,5 @@ func ExportFeatureCollection(featureCollection *FeatureCollection) {
 		fmt.Printf("err == %v", err)
 		return
 	}
-	fmt.Printf("GPX was successfully exported to %s\n", fileName)
+	fmt.Printf("GPX was successfully exported to %s\n", outputFile)
 }

@@ -2,7 +2,10 @@ module github.com/anth2o/refugenavigator
 
 go 1.24.4
 
-require github.com/twpayne/go-gpx v1.5.0
+require (
+	bou.ke/monkey v1.0.2
+	github.com/twpayne/go-gpx v1.5.0
+)
 
 require (
 	github.com/twpayne/go-geom v1.6.1 // indirect

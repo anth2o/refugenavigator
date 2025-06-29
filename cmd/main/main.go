@@ -13,5 +13,5 @@ func main() {
 	if featureCollection == nil {
 		return
 	}
-	scrapper.ExportFeatureCollection(featureCollection)
+	scrapper.ExportFeatureCollection(featureCollection, "output.gpx")
 }
