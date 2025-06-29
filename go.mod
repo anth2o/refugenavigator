@@ -1,4 +1,4 @@
-module refugenavigator
+module github.com/anth2o/refugenavigator
 
 go 1.24.4
 
