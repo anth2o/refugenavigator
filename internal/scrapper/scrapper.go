@@ -11,9 +11,13 @@ import (
 
 var baseUrl string = "https://www.refuges.info/api/bbox?"
 
-func GetFeatureCollection(bbox BoundingBox) *FeatureCollection {
-	url := baseUrl + bbox.String()
-	// Make a GET request to the URL
+type Querier interface {
+	QueryUrl(url string) []byte
+}
+
+type DefaultQuerier struct{}
+
+func (d DefaultQuerier) QueryUrl(url string) []byte {
 	response, err := http.Get(url)
 	if err != nil {
 		fmt.Printf("Error making GET request: %v\n", err)
@@ -21,13 +25,23 @@ func GetFeatureCollection(bbox BoundingBox) *FeatureCollection {
 	}
 	defer response.Body.Close()
 
-	// Read the response body
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		fmt.Printf("Error reading response body: %v\n", err)
 		return nil
 	}
+	return body
+}
 
+func GetFeatureCollection(bbox BoundingBox, querier Querier) *FeatureCollection {
+	url := baseUrl + bbox.String()
+	if querier == nil {
+		querier = DefaultQuerier{}
+	}
+	body := querier.QueryUrl(url)
+	if body == nil {
+		return nil
+	}
 	var featureCollection FeatureCollection
 	json.Unmarshal(body, &featureCollection)
 	return &featureCollection

@@ -1,0 +1,40 @@
+{
+    "type": "FeatureCollection",
+    "generator": "Refuges.info API",
+    "copyright": "The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0",
+    "timestamp": "2025-06-28T18:08:11+02:00",
+    "size": "5",
+    "features": 
+    [ 
+    {
+       "type": "Feature",
+       "id": 28,
+       "properties": {"id":28,"lien":"https:\/\/www.refuges.info\/point\/28\/cabane-non-gardee\/refuge-de-la-Jasse-du-Play\/","nom":"Refuge de la Jasse du Play","sym":"Fishing Hot Spot Facility","coord":{"alt":1629},"type":{"id":7,"valeur":"cabane non gard\u00e9e","icone":"cabane_feu"},"places":{"nom":"Places pr\u00e9vues pour dormir","valeur":10},"etat":{"valeur":""}},
+       "geometry": {"type":"Point","coordinates":[5.5021,44.91067]}
+    }, 
+    {
+       "type": "Feature",
+       "id": 1198,
+       "properties": {"id":1198,"lien":"https:\/\/www.refuges.info\/point\/1198\/point-d-eau\/fontaine-du-Play\/","nom":"Fontaine du Play","sym":"Drinking Water","coord":{"alt":1670},"type":{"id":23,"valeur":"point d'eau","icone":"pointdeau"},"places":{"nom":"","valeur":0},"etat":{"valeur":""}},
+       "geometry": {"type":"Point","coordinates":[5.51051,44.90526]}
+    }, 
+    {
+       "type": "Feature",
+       "id": 1199,
+       "properties": {"id":1199,"lien":"https:\/\/www.refuges.info\/point\/1199\/point-d-eau\/deuxieme-fontaine-du-Play\/","nom":"Deuxi\u00e8me fontaine du Play","sym":"Drinking Water","coord":{"alt":1670},"type":{"id":23,"valeur":"point d'eau","icone":"pointdeau"},"places":{"nom":"","valeur":0},"etat":{"valeur":""}},
+       "geometry": {"type":"Point","coordinates":[5.5093,44.9035]}
+    }, 
+    {
+       "type": "Feature",
+       "id": 1987,
+       "properties": {"id":1987,"lien":"https:\/\/www.refuges.info\/point\/1987\/sommet\/rocher-de-Seguret\/","nom":"Rocher de S\u00e9guret","sym":"Summit","coord":{"alt":2051},"type":{"id":6,"valeur":"sommet","icone":"sommet"},"places":{"nom":"","valeur":0},"etat":{"valeur":""}},
+       "geometry": {"type":"Point","coordinates":[5.52081,44.90792]}
+    }, 
+    {
+       "type": "Feature",
+       "id": 1986,
+       "properties": {"id":1986,"lien":"https:\/\/www.refuges.info\/point\/1986\/passage-delicat\/pas-de-Berrieves\/","nom":"Pas de B\u00e8rri\u00e8ves","sym":"Flag, Red","coord":{"alt":1887},"type":{"id":3,"valeur":"passage d\u00e9licat","icone":"triangle_a33.10"},"places":{"nom":"","valeur":0},"etat":{"valeur":""}},
+       "geometry": {"type":"Point","coordinates":[5.5173,44.90996]}
+    }  ]
+  }
+  

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Refuges Scrapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <desc>grp_rep:refuges.info 2025-06-29 12:13:24</desc>
+    <time>0001-01-01T00:00:00Z</time>
+  </metadata>
+  <wpt lat="44.91067" lon="5.5021">
+    <name>Refuge de la Jasse du Play</name>
+    <desc>Imported from Refuges.info on 2025-06-29 12:13:24</desc>
+  </wpt>
+  <wpt lat="44.90526" lon="5.51051">
+    <name>Fontaine du Play</name>
+    <desc>Imported from Refuges.info on 2025-06-29 12:13:24</desc>
+  </wpt>
+  <wpt lat="44.9035" lon="5.5093">
+    <name>Deuxième fontaine du Play</name>
+    <desc>Imported from Refuges.info on 2025-06-29 12:13:24</desc>
+  </wpt>
+  <wpt lat="44.90792" lon="5.52081">
+    <name>Rocher de Séguret</name>
+    <desc>Imported from Refuges.info on 2025-06-29 12:13:24</desc>
+  </wpt>
+  <wpt lat="44.90996" lon="5.5173">
+    <name>Pas de Bèrrièves</name>
+    <desc>Imported from Refuges.info on 2025-06-29 12:13:24</desc>
+  </wpt>
+</gpx>
