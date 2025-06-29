@@ -9,7 +9,7 @@ func main() {
 		NorthEast: scrapper.Point{5.52315, 44.9159},
 		SouthWest: scrapper.Point{5.49826, 44.8983},
 	}
-	featureCollection := scrapper.GetFeatureCollection(bbox)
+	featureCollection := scrapper.GetFeatureCollection(bbox, nil)
 	if featureCollection == nil {
 		return
 	}
