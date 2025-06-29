@@ -1,4 +1,4 @@
-package refugenavigator
+package scrapper
 
 import (
 	"fmt"
@@ -69,9 +69,9 @@ func (p Point) String() string {
 }
 
 type BoundingBox struct {
-	southWest, northEast Point
+	SouthWest, NorthEast Point
 }
 
 func (b BoundingBox) String() string {
-	return fmt.Sprintf("bbox=%v,%v", b.southWest, b.northEast)
+	return fmt.Sprintf("bbox=%v,%v", b.SouthWest, b.NorthEast)
 }

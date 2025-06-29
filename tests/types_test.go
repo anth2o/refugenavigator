@@ -1,4 +1,4 @@
-package refugenavigator
+package tests
 
 import (
 	"testing"
@@ -6,13 +6,13 @@ import (
 
 func TestString(t *testing.T) {
 	bbox := getBoundingBoxTest()
-	southWest := bbox.southWest
+	southWest := bbox.SouthWest
 	southWestString := southWest.String()
 	expectedSouthWestString := "5.49826,44.89830"
 	if southWestString != expectedSouthWestString {
 		t.Errorf("Point.String() = %s, want %s", southWestString, expectedSouthWestString)
 	}
-	northEast := bbox.northEast
+	northEast := bbox.NorthEast
 	northEastString := northEast.String()
 	expectedNorthEastString := "5.52315,44.91590"
 	if northEastString != expectedNorthEastString {

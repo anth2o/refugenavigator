@@ -1,4 +1,4 @@
-package refugenavigator
+package scrapper
 
 import (
 	"encoding/json"
@@ -11,7 +11,7 @@ import (
 
 var baseUrl string = "https://www.refuges.info/api/bbox?"
 
-func getFeatureCollection(bbox BoundingBox) *FeatureCollection {
+func GetFeatureCollection(bbox BoundingBox) *FeatureCollection {
 	url := baseUrl + bbox.String()
 	// Make a GET request to the URL
 	response, err := http.Get(url)
@@ -33,8 +33,9 @@ func getFeatureCollection(bbox BoundingBox) *FeatureCollection {
 	return &featureCollection
 }
 
-func exportFeatureCollection(featureCollection *FeatureCollection) {
-	f, err := os.Create("data/example.gpx")
+func ExportFeatureCollection(featureCollection *FeatureCollection) {
+	fileName := "data/example.gpx"
+	f, err := os.Create(fileName)
 	if err != nil {
 		fmt.Printf("Error creating file: %v\n", err)
 		return
@@ -43,20 +44,11 @@ func exportFeatureCollection(featureCollection *FeatureCollection) {
 
 	if _, err := f.WriteString(xml.Header); err != nil {
 		fmt.Printf("err == %v", err)
+		return
 	}
 	if err := featureCollection.ToGpx().WriteIndent(f, "", "  "); err != nil {
 		fmt.Printf("err == %v", err)
-	}
-}
-
-func main() {
-	bbox := BoundingBox{
-		northEast: Point{5.52315, 44.9159},
-		southWest: Point{5.49826, 44.8983},
-	}
-	featureCollection := getFeatureCollection(bbox)
-	if featureCollection == nil {
 		return
 	}
-	exportFeatureCollection(featureCollection)
+	fmt.Printf("GPX was successfully exported to %s\n", fileName)
 }
