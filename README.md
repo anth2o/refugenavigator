@@ -1,5 +1,8 @@
 # Refuge Navigator
 
+[![test](https://github.com/anth2o/refugenavigator/actions/workflows/test.yml/badge.svg)](https://github.com/anth2o/refugenavigator/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/anth2o/refugenavigator/branch/main/graph/badge.svg?token=J6KEKKL5ZE)](https://codecov.io/gh/anth2o/refugenavigator)
+
 🚧🚧🚧
 
 The purpose of this project is to:
