@@ -7,6 +7,7 @@ import (
 )
 
 func TestGetPoints(t *testing.T) {
+	fjfjf
 	bbox := getBoundingBoxTest()
 	scrapper.GetFeatureCollection(bbox)
 }
