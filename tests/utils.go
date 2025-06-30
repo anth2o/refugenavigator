@@ -14,6 +14,19 @@ func getBoundingBoxTest() scrapper.BoundingBox {
 	}
 }
 
+func getBoundingBoxStringTest() string {
+	return "bbox=5.49826,44.89830,5.52315,44.91590"
+}
+
+func getFeatureTest() scrapper.Feature {
+	return scrapper.Feature{
+		Type:       "Feature",
+		Id:         1198,
+		Properties: scrapper.Properties{Name: "Fontaine du Play", Coord: scrapper.Coord{Altitude: 1670}},
+		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.51051, 44.90526}},
+	}
+}
+
 func getFeatureCollectionTest() scrapper.FeatureCollection {
 	var features []scrapper.Feature = []scrapper.Feature{}
 	features = append(features, scrapper.Feature{
@@ -22,12 +35,7 @@ func getFeatureCollectionTest() scrapper.FeatureCollection {
 		Properties: scrapper.Properties{Name: "Refuge de la Jasse du Play", Coord: scrapper.Coord{Altitude: 1629}},
 		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.5021, 44.91067}},
 	})
-	features = append(features, scrapper.Feature{
-		Type:       "Feature",
-		Id:         1198,
-		Properties: scrapper.Properties{Name: "Fontaine du Play", Coord: scrapper.Coord{Altitude: 1670}},
-		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.51051, 44.90526}},
-	})
+	features = append(features, getFeatureTest())
 	features = append(features, scrapper.Feature{
 		Type:       "Feature",
 		Id:         1199,

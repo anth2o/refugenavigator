@@ -1,3 +1,6 @@
+// Source code to fetch data from refuges.info API
+// Here is the documentation about it https://www.refuges.info/api/doc/#/api
+
 package scrapper
 
 import (
@@ -7,7 +10,11 @@ import (
 	"net/http"
 )
 
-var baseUrl string = "https://www.refuges.info/api/bbox?"
+var baseUrl string = "https://www.refuges.info/api"
+
+func GetBaseUrl() string {
+	return baseUrl
+}
 
 type Querier interface {
 	QueryUrl(url string) []byte
@@ -31,16 +38,25 @@ func (d DefaultQuerier) QueryUrl(url string) []byte {
 	return body
 }
 
-func GetFeatureCollection(bbox BoundingBox, querier Querier) *FeatureCollection {
-	url := baseUrl + bbox.String()
+func query(url string, querier Querier) []byte {
 	if querier == nil {
 		querier = DefaultQuerier{}
 	}
-	body := querier.QueryUrl(url)
-	if body == nil {
-		return nil
-	}
+	return querier.QueryUrl(url)
+}
+
+func parseFeatureCollection(body []byte) FeatureCollection {
 	var featureCollection FeatureCollection
 	json.Unmarshal(body, &featureCollection)
-	return &featureCollection
+	return featureCollection
+}
+
+func GetFeatureCollection(bbox BoundingBox, querier Querier) FeatureCollection {
+	body := query(baseUrl+"/bbox?"+bbox.String(), querier)
+	return parseFeatureCollection(body)
+}
+
+func GetFeature(featureId int, querier Querier) Feature {
+	body := query(baseUrl+"/point?id="+fmt.Sprint(featureId)+"&detail=complet&format=geojson", querier)
+	return parseFeatureCollection(body).Features[0]
 }
