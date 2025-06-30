@@ -1,0 +1,116 @@
+{
+    "type": "FeatureCollection",
+    "generator": "Refuges.info API",
+    "copyright": "The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0",
+    "timestamp": "2025-06-30T20:27:56+02:00",
+    "size": "1",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1198,
+            "properties": {
+                "id": "1198",
+                "lien": "https://www.refuges.info/point/1198/point-d-eau/fontaine-du-Play/",
+                "nom": "Fontaine du Play",
+                "sym": "Drinking Water",
+                "coord": {
+                    "alt": "1670",
+                    "long": "5.51051",
+                    "lat": "44.90526",
+                    "precision": {
+                        "nom": "Coordonnées prises sur le terrain",
+                        "type": "1"
+                    }
+                },
+                "type": {
+                    "id": "23",
+                    "valeur": "point d'eau",
+                    "icone": "pointdeau"
+                },
+                "places": {
+                    "nom": "",
+                    "valeur": "0"
+                },
+                "etat": {
+                    "valeur": "",
+                    "id": "ouverture"
+                },
+                "date": {
+                    "derniere_modif": "2018-08-13 13:01:02.925287+02",
+                    "creation": "2006-04-20 00:00:00+02"
+                },
+                "remarque": {
+                    "nom": "Remarque",
+                    "valeur": "Que chaque randonneur qui l'a vue donne sa date de passage et l'état de la source, cela permet à ceux qui veulent y aller de prévoir leur chance d'y trouver de l'eau. \r\n\r\n Captage sécurisé avec grillages afin d'éviter les souillures par les animaux (mais la source reste accessible aux randonneurs) - avril 2014"
+                },
+                "acces": {
+                    "nom": "Accès",
+                    "valeur": "A partir de la cabane de la Jasse du Play, continuer sur le GR 91 vers le Sud-Est le GR passe maintenant (08/2018) devant la source.\r\n\r\nLa fontaine se trouve à gauche au bas d’un pan rocheux."
+                },
+                "proprio": {
+                    "nom": "",
+                    "valeur": ""
+                },
+                "createur": {
+                    "id": "0",
+                    "nom": "Dominique"
+                },
+                "article": {
+                    "demonstratif": "ce",
+                    "defini": "le",
+                    "partitif": "d'un"
+                },
+                "info_comp": {
+                    "site_officiel": {
+                        "nom": "",
+                        "url": "",
+                        "valeur": ""
+                    },
+                    "manque_un_mur": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "cheminee": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "poele": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "couvertures": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "places_matelas": {
+                        "nom": "",
+                        "nb": null,
+                        "valeur": "Sans"
+                    },
+                    "latrines": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "bois": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "eau": {
+                        "nom": "",
+                        "valeur": null
+                    }
+                },
+                "description": {
+                    "valeur": "Que chaque randonneur qui l'a vue donne sa date de passage et l'état de la source, cela permet à ceux qui veulent y aller de prévoir leur chance d'y trouver de l'eau. \r\n\r\n Captage sécurisé avec grillages afin d'éviter les souillures par les animaux (mais la source reste accessible aux randonneurs) - avril 2014\nA partir de la cabane de la Jasse du Play, continuer sur le GR 91 vers le Sud-Est le GR passe maintenant (08/2018) devant la source.\r\n\r\nLa fontaine se trouve à gauche au bas d’un pan rocheux.\n\n"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.51051,
+                    44.90526
+                ]
+            }
+        }
+    ]
+}

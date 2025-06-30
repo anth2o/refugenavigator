@@ -9,11 +9,10 @@ import (
 	"github.com/anth2o/refugenavigator/internal/scrapper"
 )
 
-func TestExportFeatureCollection(t *testing.T) {
-	featureCollection := getFeatureCollectionTest()
-	// uncomment next line to genereate
-	// f, err := os.Create("../data/test_generated.gpx")
+func checkExport(featureCollection *scrapper.FeatureCollection, t *testing.T, expectedFile string) {
 	f, err := os.CreateTemp("", "sample")
+	// uncomment next line to compare more easily
+	// f, err = os.Create("../data/.exported.gpx")
 	if err != nil {
 		panic(err)
 	}
@@ -23,12 +22,12 @@ func TestExportFeatureCollection(t *testing.T) {
 	})
 
 	defer guard.Unpatch() // Make sure to unpatch after the test
-	scrapper.ExportFeatureCollection(&featureCollection, f.Name())
+	scrapper.ExportFeatureCollection(featureCollection, f.Name())
 
 	exportedGPX, err := os.ReadFile(f.Name())
 	checkError(err)
 	exportedGPXStr := string(exportedGPX)
-	expectedExportedGPX, err := os.ReadFile("../data/example.gpx")
+	expectedExportedGPX, err := os.ReadFile("../data/" + expectedFile)
 	checkError(err)
 	expectedExportedGPXStr := string(expectedExportedGPX)
 	if exportedGPXStr != expectedExportedGPXStr {
@@ -38,4 +37,12 @@ func TestExportFeatureCollection(t *testing.T) {
 		}
 		t.Errorf("ExportFeatureCollection() did not produce the expected GPX file:\n%s", diff)
 	}
+}
+func TestExportFeatureCollection(t *testing.T) {
+	featureCollection := getFeatureCollectionTest()
+	checkExport(featureCollection, t, "exported.gpx")
+}
+func TestExportFeatureCollectionEnriched(t *testing.T) {
+	featureCollection := getFeatureCollectionEnrichedTest()
+	checkExport(featureCollection, t, "exported_enriched.gpx")
 }

@@ -10,5 +10,6 @@ func main() {
 		SouthWest: scrapper.Point{5.49826, 44.8983},
 	}
 	featureCollection := scrapper.GetFeatureCollection(bbox, nil)
-	scrapper.ExportFeatureCollection(&featureCollection, "output.gpx")
+	scrapper.EnrichFeatureCollection(featureCollection, nil)
+	scrapper.ExportFeatureCollection(featureCollection, "output.gpx")
 }

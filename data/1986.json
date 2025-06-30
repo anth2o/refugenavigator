@@ -1,0 +1,116 @@
+{
+    "type": "FeatureCollection",
+    "generator": "Refuges.info API",
+    "copyright": "The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0",
+    "timestamp": "2025-06-30T20:46:45+02:00",
+    "size": "1",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1986,
+            "properties": {
+                "id": 1986,
+                "lien": "https://www.refuges.info/point/1986/passage-delicat/pas-de-Berrieves/",
+                "nom": "Pas de Bèrrièves",
+                "sym": "Flag, Red",
+                "coord": {
+                    "alt": 1887,
+                    "long": "5.5173",
+                    "lat": "44.90996",
+                    "precision": {
+                        "nom": "Autre",
+                        "type": 10
+                    }
+                },
+                "type": {
+                    "id": 3,
+                    "valeur": "passage délicat",
+                    "icone": "triangle_a33.10"
+                },
+                "places": {
+                    "nom": "",
+                    "valeur": 0
+                },
+                "etat": {
+                    "valeur": "",
+                    "id": null
+                },
+                "date": {
+                    "derniere_modif": "2021-02-21 16:34:58.900485+01",
+                    "creation": "2007-12-05 00:00:00+01"
+                },
+                "remarque": {
+                    "nom": "Remarque",
+                    "valeur": "Du Pas de Bèrrièves, on a la possibilité de descendre sur le refuge de la Jasse du Play, bien visible.\r\nOu par les crètes de rejoindre le Pas de la Ville vers le(sud).\r\nUn des nombreux Passage pour accéder sur le plateau du Vercors...!"
+                },
+                "acces": {
+                    "nom": "Accès",
+                    "valeur": "Deux kilomètres avant Gresse en Vercors, prendre la route à droite qui vous emmène au hameau les Petits Deux,et à droite le Col des Deux(1222)m. Parking le long de la route à gauche.\r\nRevenir sur ces pas, entre les maisons démarre notre sentier.\r\nVers l'(ouest), il longe de grandes prairies, et entre franchement en forèt...!"
+                },
+                "proprio": {
+                    "nom": "",
+                    "valeur": ""
+                },
+                "createur": {
+                    "id": 0,
+                    "nom": "Patrice"
+                },
+                "article": {
+                    "demonstratif": "ce",
+                    "defini": "le",
+                    "partitif": "d'un"
+                },
+                "info_comp": {
+                    "site_officiel": {
+                        "nom": "",
+                        "url": "",
+                        "valeur": ""
+                    },
+                    "manque_un_mur": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "cheminee": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "poele": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "couvertures": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "places_matelas": {
+                        "nom": "",
+                        "nb": null,
+                        "valeur": "Sans"
+                    },
+                    "latrines": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "bois": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "eau": {
+                        "nom": "",
+                        "valeur": null
+                    }
+                },
+                "description": {
+                    "valeur": "Du Pas de Bèrrièves, on a la possibilité de descendre sur le refuge de la Jasse du Play, bien visible.\r\nOu par les crètes de rejoindre le Pas de la Ville vers le(sud).\r\nUn des nombreux Passage pour accéder sur le plateau du Vercors...!\nDeux kilomètres avant Gresse en Vercors, prendre la route à droite qui vous emmène au hameau les Petits Deux,et à droite le Col des Deux(1222)m. Parking le long de la route à gauche.\r\nRevenir sur ces pas, entre les maisons démarre notre sentier.\r\nVers l'(ouest), il longe de grandes prairies, et entre franchement en forèt...!\n\n"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.5173,
+                    44.90996
+                ]
+            }
+        }
+    ]
+}

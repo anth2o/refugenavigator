@@ -2,30 +2,30 @@
     "type": "FeatureCollection",
     "generator": "Refuges.info API",
     "copyright": "The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0",
-    "timestamp": "2025-06-30T19:24:42+02:00",
+    "timestamp": "2025-06-30T20:46:22+02:00",
     "size": "1",
     "features": [
         {
             "type": "Feature",
-            "id": 1198,
+            "id": 1987,
             "properties": {
-                "id": 1198,
-                "lien": "https://www.refuges.info/point/1198/point-d-eau/fontaine-du-Play/",
-                "nom": "Fontaine du Play",
-                "sym": "Drinking Water",
+                "id": 1987,
+                "lien": "https://www.refuges.info/point/1987/sommet/rocher-de-Seguret/",
+                "nom": "Rocher de Séguret",
+                "sym": "Summit",
                 "coord": {
-                    "alt": 1670,
-                    "long": "5.51051",
-                    "lat": "44.90526",
+                    "alt": 2051,
+                    "long": "5.52081",
+                    "lat": "44.90792",
                     "precision": {
-                        "nom": "Coordonnées prises sur le terrain",
-                        "type": 1
+                        "nom": "Autre",
+                        "type": 10
                     }
                 },
                 "type": {
-                    "id": 23,
-                    "valeur": "point d'eau",
-                    "icone": "pointdeau"
+                    "id": 6,
+                    "valeur": "sommet",
+                    "icone": "sommet"
                 },
                 "places": {
                     "nom": "",
@@ -33,19 +33,19 @@
                 },
                 "etat": {
                     "valeur": "",
-                    "id": "ouverture"
+                    "id": null
                 },
                 "date": {
-                    "derniere_modif": "2018-08-13 13:01:02.925287+02",
-                    "creation": "2006-04-20 00:00:00+02"
+                    "derniere_modif": "2021-02-21 16:36:54.097688+01",
+                    "creation": "2007-12-05 00:00:00+01"
                 },
                 "remarque": {
                     "nom": "Remarque",
-                    "valeur": "Que chaque randonneur qui l'a vue donne sa date de passage et l'état de la source, cela permet à ceux qui veulent y aller de prévoir leur chance d'y trouver de l'eau. \r\n\r\n[color=red] Captage sécurisé avec grillages afin d'éviter les souillures par les animaux (mais la source reste accessible aux randonneurs) - avril 2014[/color]"
+                    "valeur": "Comme pour le sommet de Pierre Blanche, par les crètes on peut atteindre le Pas de la Ville.\r\nRéservés toutefois à des randonneurs ayant l'habitude de progresser en terrains de crètes et hors sentiers...!"
                 },
                 "acces": {
                     "nom": "Accès",
-                    "valeur": "A partir de la cabane de la Jasse du Play, continuer sur le GR 91 vers le Sud-Est le GR passe maintenant (08/2018) devant la source.\r\n\r\nLa fontaine se trouve à gauche au bas d’un pan rocheux."
+                    "valeur": "Du hameau les Petits Deux.\r\nSuivre l'itinéraire qui vous mène au Pas de Bèrrièves.\r\nEnsuite vers la gauche(sud est), on gagne le sommet du Rocher de Séguret.\r\nLa descente s'effectue par le mème itinéraire...!"
                 },
                 "proprio": {
                     "nom": "",
@@ -53,7 +53,7 @@
                 },
                 "createur": {
                     "id": 0,
-                    "nom": "Dominique"
+                    "nom": "Patrice"
                 },
                 "article": {
                     "demonstratif": "ce",
@@ -101,14 +101,14 @@
                     }
                 },
                 "description": {
-                    "valeur": "Que chaque randonneur qui l'a vue donne sa date de passage et l'état de la source, cela permet à ceux qui veulent y aller de prévoir leur chance d'y trouver de l'eau. \r\n\r\n[color=red] Captage sécurisé avec grillages afin d'éviter les souillures par les animaux (mais la source reste accessible aux randonneurs) - avril 2014[/color]\nA partir de la cabane de la Jasse du Play, continuer sur le GR 91 vers le Sud-Est le GR passe maintenant (08/2018) devant la source.\r\n\r\nLa fontaine se trouve à gauche au bas d’un pan rocheux.\n\n"
+                    "valeur": "Comme pour le sommet de Pierre Blanche, par les crètes on peut atteindre le Pas de la Ville.\r\nRéservés toutefois à des randonneurs ayant l'habitude de progresser en terrains de crètes et hors sentiers...!\nDu hameau les Petits Deux.\r\nSuivre l'itinéraire qui vous mène au Pas de Bèrrièves.\r\nEnsuite vers la gauche(sud est), on gagne le sommet du Rocher de Séguret.\r\nLa descente s'effectue par le mème itinéraire...!\n\n"
                 }
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    5.51051,
-                    44.90526
+                    5.52081,
+                    44.90792
                 ]
             }
         }

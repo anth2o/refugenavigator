@@ -1,0 +1,116 @@
+{
+    "type": "FeatureCollection",
+    "generator": "Refuges.info API",
+    "copyright": "The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0",
+    "timestamp": "2025-06-30T20:45:56+02:00",
+    "size": "1",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1199,
+            "properties": {
+                "id": 1199,
+                "lien": "https://www.refuges.info/point/1199/point-d-eau/deuxieme-fontaine-du-Play/",
+                "nom": "Deuxième fontaine du Play",
+                "sym": "Drinking Water",
+                "coord": {
+                    "alt": 1670,
+                    "long": "5.5093",
+                    "lat": "44.9035",
+                    "precision": {
+                        "nom": "Autre",
+                        "type": 10
+                    }
+                },
+                "type": {
+                    "id": 23,
+                    "valeur": "point d'eau",
+                    "icone": "pointdeau"
+                },
+                "places": {
+                    "nom": "",
+                    "valeur": 0
+                },
+                "etat": {
+                    "valeur": "",
+                    "id": "ouverture"
+                },
+                "date": {
+                    "derniere_modif": "2013-06-02 16:42:12.494656+02",
+                    "creation": "2006-04-20 00:00:00+02"
+                },
+                "remarque": {
+                    "nom": "Remarque",
+                    "valeur": "Pas vraiment une fontaine mais plutôt une simple source non aménagée d'où coule assez peu d'eau"
+                },
+                "acces": {
+                    "nom": "Accès",
+                    "valeur": "200m au sud de la première fontaine du Play. Pas de chemin.\r\nde la première fontaine continuer sous la petite falaise rocheuse\r\nRedescendre légèrement pour traverser un petit pierrier \r\nEntrer dans la forêt, la fontaine est là au pied d'épicéas\r\nJe l'ai trouvé à l'oreille car on ne la voit pas de loin"
+                },
+                "proprio": {
+                    "nom": "",
+                    "valeur": ""
+                },
+                "createur": {
+                    "id": 0,
+                    "nom": ""
+                },
+                "article": {
+                    "demonstratif": "ce",
+                    "defini": "le",
+                    "partitif": "d'un"
+                },
+                "info_comp": {
+                    "site_officiel": {
+                        "nom": "",
+                        "url": "",
+                        "valeur": ""
+                    },
+                    "manque_un_mur": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "cheminee": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "poele": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "couvertures": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "places_matelas": {
+                        "nom": "",
+                        "nb": null,
+                        "valeur": "Sans"
+                    },
+                    "latrines": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "bois": {
+                        "nom": "",
+                        "valeur": null
+                    },
+                    "eau": {
+                        "nom": "",
+                        "valeur": null
+                    }
+                },
+                "description": {
+                    "valeur": "Pas vraiment une fontaine mais plutôt une simple source non aménagée d'où coule assez peu d'eau\n200m au sud de la première fontaine du Play. Pas de chemin.\r\nde la première fontaine continuer sous la petite falaise rocheuse\r\nRedescendre légèrement pour traverser un petit pierrier \r\nEntrer dans la forêt, la fontaine est là au pied d'épicéas\r\nJe l'ai trouvé à l'oreille car on ne la voit pas de loin\n\n"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.5093,
+                    44.9035
+                ]
+            }
+        }
+    ]
+}

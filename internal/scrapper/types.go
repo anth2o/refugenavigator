@@ -2,65 +2,30 @@ package scrapper
 
 import (
 	"fmt"
-	"time"
-
-	"github.com/twpayne/go-gpx"
 )
 
 type FeatureCollection struct {
 	Features []Feature `json:"features"`
 }
 
-func (fc FeatureCollection) ToGpx() *gpx.GPX {
-	exportedGpx := gpx.GPX{
-		Version: "1.1",
-		Creator: "Export gpx standard de refuges.info",
-		Metadata: &gpx.MetadataType{
-			Name: "Points de refuges.info. The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0",
-			Desc: "grp_rep:refuges.info " + time.Now().Format("2006-01-02 15:04:05"), // important so that features are in the same group in iPhigenie
-			Author: &gpx.PersonType{
-				Name: "Contributeurs refuges.info",
-			},
-			Copyright: &gpx.CopyrightType{
-				Author:  "Contributeurs refuges.info",
-				Year:    time.Now().Year(),
-				License: "http://creativecommons.org/licenses/by-sa/2.0/deed.fr",
-			},
-			Link: []*gpx.LinkType{{
-				HREF: "https://www.refuges.info",
-			}},
-		},
-	}
-	for _, feature := range fc.Features {
-		exportedGpx.Wpt = append(exportedGpx.Wpt, feature.ToGpx())
-	}
-	return &exportedGpx
-}
-
 type Feature struct {
-	Type       string     `json:"type"`
 	Id         int        `json:"id"`
 	Properties Properties `json:"properties"`
 	Geometry   Geometry   `json:"geometry"`
 }
 
-func (f Feature) ToGpx() *gpx.WptType {
-	return &gpx.WptType{
-		Lat:  f.Geometry.Coordinates.latitude(),
-		Lon:  f.Geometry.Coordinates.longitude(),
-		Name: f.Properties.Name,
-		// TODO: summarize the data from the web page relative to this feature into a description
-		Desc: "Imported from Refuges.info on " + time.Now().Format("2006-01-02 15:04:05"),
-	}
+type Properties struct {
+	Name        string      `json:"nom"`
+	Coord       Coord       `json:"coord"`
+	Description Description `json:"description"`
 }
 
-type Properties struct {
-	Name  string `json:"nom"`
-	Coord Coord  `json:"coord"`
+type Description struct {
+	Value string `json:"valeur"`
 }
 
 type Coord struct {
-	Altitude float64 `json:"alt"`
+	Altitude FlexibleInt `json:"alt"` // when fetching FeatureCollection, altitude is a int, but when fetching Feature, it is a string
 }
 
 type Geometry struct {

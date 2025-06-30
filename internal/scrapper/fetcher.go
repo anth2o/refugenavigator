@@ -45,18 +45,25 @@ func query(url string, querier Querier) []byte {
 	return querier.QueryUrl(url)
 }
 
-func parseFeatureCollection(body []byte) FeatureCollection {
+func parseFeatureCollection(body []byte) *FeatureCollection {
 	var featureCollection FeatureCollection
 	json.Unmarshal(body, &featureCollection)
-	return featureCollection
+	return &featureCollection
 }
 
-func GetFeatureCollection(bbox BoundingBox, querier Querier) FeatureCollection {
+func GetFeatureCollection(bbox BoundingBox, querier Querier) *FeatureCollection {
 	body := query(baseUrl+"/bbox?"+bbox.String(), querier)
 	return parseFeatureCollection(body)
 }
 
-func GetFeature(featureId int, querier Querier) Feature {
-	body := query(baseUrl+"/point?id="+fmt.Sprint(featureId)+"&detail=complet&format=geojson", querier)
-	return parseFeatureCollection(body).Features[0]
+func GetFeature(featureId int, querier Querier) *Feature {
+	body := query(baseUrl+"/point?id="+fmt.Sprint(featureId)+"&detail=complet&format=geojson&format_texte=markdown", querier)
+	featureCollection := parseFeatureCollection(body)
+	return &featureCollection.Features[0]
+}
+
+func EnrichFeatureCollection(featureCollection *FeatureCollection, querier Querier) {
+	for i := range featureCollection.Features {
+		featureCollection.Features[i] = *GetFeature(featureCollection.Features[i].Id, querier)
+	}
 }
