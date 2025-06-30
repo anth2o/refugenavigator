@@ -11,6 +11,8 @@ import (
 
 func TestExportFeatureCollection(t *testing.T) {
 	featureCollection := getFeatureCollectionTest()
+	// uncomment next line to genereate
+	// f, err := os.Create("../data/test_generated.gpx")
 	f, err := os.CreateTemp("", "sample")
 	if err != nil {
 		panic(err)

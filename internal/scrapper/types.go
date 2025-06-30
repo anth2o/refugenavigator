@@ -14,9 +14,21 @@ type FeatureCollection struct {
 func (fc FeatureCollection) ToGpx() *gpx.GPX {
 	exportedGpx := gpx.GPX{
 		Version: "1.1",
-		Creator: "Refuges Scrapper",
+		Creator: "Export gpx standard de refuges.info",
 		Metadata: &gpx.MetadataType{
-			Desc: "grp_rep:refuges.info " + time.Now().Format("2006-01-02 15:04:05"),
+			Name: "Points de refuges.info. The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0",
+			Desc: "grp_rep:refuges.info " + time.Now().Format("2006-01-02 15:04:05"), // important so that features are in the same group in iPhigenie
+			Author: &gpx.PersonType{
+				Name: "Contributeurs refuges.info",
+			},
+			Copyright: &gpx.CopyrightType{
+				Author:  "Contributeurs refuges.info",
+				Year:    time.Now().Year(),
+				License: "http://creativecommons.org/licenses/by-sa/2.0/deed.fr",
+			},
+			Link: []*gpx.LinkType{{
+				HREF: "https://www.refuges.info",
+			}},
 		},
 	}
 	for _, feature := range fc.Features {
