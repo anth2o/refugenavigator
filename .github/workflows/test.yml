@@ -17,6 +17,8 @@ jobs:
             go-version-file: go.mod
       - name: run tests
         run: go test ./tests/... -coverprofile=./coverage.txt -coverpkg=./internal/... 
+      - name: build main
+        run: go build ./cmd/main
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5
         with:
