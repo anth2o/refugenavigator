@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="Export gpx standard de refuges.info" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd">
-  <metadata>
-    <name>Points de refuges.info. The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0</name>
-    <desc>grp_rep:refuges.info 2025-06-29 12:13:24</desc>
-    <author>
-      <name>Contributeurs refuges.info</name>
-    </author>
-    <copyright author="Contributeurs refuges.info">
-      <year>2025</year>
-      <license>http://creativecommons.org/licenses/by-sa/2.0/deed.fr</license>
-    </copyright>
-    <link href="https://www.refuges.info"></link>
-    <time>0001-01-01T00:00:00Z</time>
-  </metadata>
-  <wpt lat="44.91067" lon="5.5021">
-    <name>Refuge de la Jasse du Play</name>
-  </wpt>
-  <wpt lat="44.90526" lon="5.51051">
-    <name>Fontaine du Play</name>
-  </wpt>
-  <wpt lat="44.9035" lon="5.5093">
-    <name>Deuxième fontaine du Play</name>
-  </wpt>
-  <wpt lat="44.90792" lon="5.52081">
-    <name>Rocher de Séguret</name>
-  </wpt>
-  <wpt lat="44.90996" lon="5.5173">
-    <name>Pas de Bèrrièves</name>
-  </wpt>
+<gpx  xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="Export gpx standard de refuges.info">
+	<metadata>
+		<name>Points de refuges.info. The data included in this document is from www.refuges.info. The data is made available under CC By-Sa 2.0</name>
+		<desc>grp_rep:refuges.info 2025-06-29 12:13:24</desc>
+		<author>
+			<name>Contributeurs refuges.info</name>
+		</author>
+		<copyright author="Contributeurs refuges.info">
+			<year>2025</year>
+			<license>http://creativecommons.org/licenses/by-sa/2.0/deed.fr</license>
+		</copyright>
+		<link href="https://www.refuges.info">
+			<text>refuges.info</text>
+			<type>website</type>
+		</link>
+	</metadata>
+	<wpt lat="44.91067" lon="5.5021">
+		<name>Refuge de la Jasse du Play</name>
+	</wpt>
+	<wpt lat="44.90526" lon="5.51051">
+		<name>Fontaine du Play</name>
+	</wpt>
+	<wpt lat="44.9035" lon="5.5093">
+		<name>Deuxième fontaine du Play</name>
+	</wpt>
+	<wpt lat="44.90792" lon="5.52081">
+		<name>Rocher de Séguret</name>
+	</wpt>
+	<wpt lat="44.90996" lon="5.5173">
+		<name>Pas de Bèrrièves</name>
+	</wpt>
 </gpx>

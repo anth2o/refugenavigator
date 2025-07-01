@@ -4,11 +4,10 @@ go 1.24.4
 
 require (
 	bou.ke/monkey v1.0.2
-	github.com/twpayne/go-gpx v1.5.0
+	github.com/tkrajina/gpxgo v1.4.0
 )
 
 require (
-	github.com/twpayne/go-geom v1.6.1 // indirect
 	golang.org/x/net v0.39.0 // indirect
 	golang.org/x/text v0.24.0 // indirect
 )

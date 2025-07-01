@@ -10,13 +10,19 @@ import (
 )
 
 func checkExport(featureCollection *scrapper.FeatureCollection, t *testing.T, expectedFile string) {
-	f, err := os.CreateTemp("", "sample")
-	// uncomment next line to compare more easily
-	// f, err = os.Create("../data/.exported.gpx")
+	var f *os.File
+	var err error
+	expectedFile = "../data/" + expectedFile
+	update := false // set this boolean to true to update the expected file, but don't commit it to true
+	if update {
+		f, err = os.Create(expectedFile)
+	} else {
+		f, err = os.CreateTemp("", "sample")
+	}
+	defer f.Close()
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
 	guard := monkey.Patch(time.Now, func() time.Time {
 		return time.Date(2025, 6, 29, 12, 13, 24, 0, time.UTC)
 	})
@@ -27,7 +33,7 @@ func checkExport(featureCollection *scrapper.FeatureCollection, t *testing.T, ex
 	exportedGPX, err := os.ReadFile(f.Name())
 	checkError(err)
 	exportedGPXStr := string(exportedGPX)
-	expectedExportedGPX, err := os.ReadFile("../data/" + expectedFile)
+	expectedExportedGPX, err := os.ReadFile(expectedFile)
 	checkError(err)
 	expectedExportedGPXStr := string(expectedExportedGPX)
 	if exportedGPXStr != expectedExportedGPXStr {
