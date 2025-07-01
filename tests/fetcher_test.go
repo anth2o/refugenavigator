@@ -7,11 +7,83 @@ import (
 	"strings"
 	"testing"
 
+	"net/http"
+	"net/http/httptest"
 	"net/url"
 
 	"github.com/anth2o/refugenavigator/internal/scrapper"
 	"github.com/google/go-cmp/cmp"
 )
+
+func TestQueryUrl(t *testing.T) {
+	tests := []struct {
+		name           string
+		url            string
+		expectedStatus int
+		expectedBody   string
+		wantErr        bool
+	}{
+		{
+			name:           "Successful request",
+			url:            "https://example.com",
+			expectedStatus: http.StatusOK,
+			expectedBody:   "Hello World",
+			wantErr:        false,
+		},
+		{
+			name:           "404 Not Found",
+			url:            "https://example.com/not-found",
+			expectedStatus: http.StatusNotFound,
+			expectedBody:   "Not Found",
+			wantErr:        false,
+		},
+		{
+			name:    "Network error",
+			url:     "https://invalid-url",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Create a test server
+			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.Path == "/not-found" {
+					w.WriteHeader(http.StatusNotFound)
+					w.Write([]byte(tt.expectedBody))
+				} else {
+					w.WriteHeader(tt.expectedStatus)
+					w.Write([]byte(tt.expectedBody))
+				}
+			}))
+			defer ts.Close()
+
+			// Override the default http.Client with our test server
+			originalClient := http.DefaultClient
+			http.DefaultClient = ts.Client()
+			defer func() {
+				http.DefaultClient = originalClient
+			}()
+
+			// Test the QueryUrl method
+			querier := scrapper.DefaultQuerier{}
+			// Remove the base URL from the test URL since we're using a test server
+			testUrl := tt.url
+			testUrl = strings.TrimPrefix(testUrl, "https://example.com")
+			result := querier.QueryUrl(ts.URL + testUrl)
+
+			if tt.wantErr {
+				if result != nil {
+					t.Errorf("QueryUrl() should have returned nil for error case, got %v", result)
+				}
+			} else {
+				if string(result) != tt.expectedBody {
+					t.Errorf("QueryUrl() = %v, want %v", string(result), tt.expectedBody)
+				}
+			}
+		})
+	}
+}
 
 type UnifiedQuerier struct {
 	t *testing.T
