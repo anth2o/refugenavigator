@@ -36,8 +36,6 @@ func (fc FeatureCollection) ToGpx() *gpx.GPX {
 }
 func formatStringForGpx(s string) string {
 	s = strings.ReplaceAll(s, "\r", "")
-	s = strings.ReplaceAll(s, "\n", " ")
-	s = strings.ReplaceAll(s, "'", " ")
 	return s
 }
 
@@ -49,7 +47,7 @@ func (f Feature) ToGpx() *gpx.GPXPoint {
 	return &gpx.GPXPoint{
 		Point:       point,
 		Name:        f.Properties.Name,
-		Description: formatStringForGpx(f.Properties.Description.Value),
+		Description: gpx.CDATA(formatStringForGpx(f.Properties.Description.Value)),
 	}
 }
 
