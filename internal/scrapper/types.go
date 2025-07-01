@@ -18,6 +18,7 @@ type Properties struct {
 	Name        string      `json:"nom"`
 	Coord       Coord       `json:"coord"`
 	Description Description `json:"description"`
+	Link        string      `json:"lien,omitempty"`
 }
 
 type Description struct {

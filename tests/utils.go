@@ -22,27 +22,27 @@ func getFeatureCollectionTest() *scrapper.FeatureCollection {
 	var features []scrapper.Feature = []scrapper.Feature{}
 	features = append(features, scrapper.Feature{
 		Id:         28,
-		Properties: scrapper.Properties{Name: "Refuge de la Jasse du Play", Coord: scrapper.Coord{Altitude: 1629}},
+		Properties: scrapper.Properties{Name: "Refuge de la Jasse du Play", Coord: scrapper.Coord{Altitude: 1629}, Link: "https://www.refuges.info/point/28/cabane-non-gardee/refuge-de-la-Jasse-du-Play/"},
 		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.5021, 44.91067}},
 	})
 	features = append(features, scrapper.Feature{
 		Id:         1198,
-		Properties: scrapper.Properties{Name: "Fontaine du Play", Coord: scrapper.Coord{Altitude: 1670}},
+		Properties: scrapper.Properties{Name: "Fontaine du Play", Coord: scrapper.Coord{Altitude: 1670}, Link: "https://www.refuges.info/point/1198/point-d-eau/fontaine-du-Play/"},
 		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.51051, 44.90526}},
 	})
 	features = append(features, scrapper.Feature{
 		Id:         1199,
-		Properties: scrapper.Properties{Name: "Deuxième fontaine du Play", Coord: scrapper.Coord{Altitude: 1670}},
+		Properties: scrapper.Properties{Name: "Deuxième fontaine du Play", Coord: scrapper.Coord{Altitude: 1670}, Link: "https://www.refuges.info/point/1199/point-d-eau/deuxieme-fontaine-du-Play/"},
 		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.5093, 44.9035}},
 	})
 	features = append(features, scrapper.Feature{
 		Id:         1987,
-		Properties: scrapper.Properties{Name: "Rocher de Séguret", Coord: scrapper.Coord{Altitude: 2051}},
+		Properties: scrapper.Properties{Name: "Rocher de Séguret", Coord: scrapper.Coord{Altitude: 2051}, Link: "https://www.refuges.info/point/1987/sommet/rocher-de-Seguret/"},
 		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.52081, 44.90792}},
 	})
 	features = append(features, scrapper.Feature{
 		Id:         1986,
-		Properties: scrapper.Properties{Name: "Pas de Bèrrièves", Coord: scrapper.Coord{Altitude: 1887}},
+		Properties: scrapper.Properties{Name: "Pas de Bèrrièves", Coord: scrapper.Coord{Altitude: 1887}, Link: "https://www.refuges.info/point/1986/passage-delicat/pas-de-Berrieves/"},
 		Geometry:   scrapper.Geometry{Type: "Point", Coordinates: scrapper.Point{5.5173, 44.90996}},
 	})
 	return &scrapper.FeatureCollection{Features: features}

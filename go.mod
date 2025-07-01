@@ -4,6 +4,7 @@ go 1.24.4
 
 require (
 	bou.ke/monkey v1.0.2
+	github.com/google/go-cmp v0.7.0
 	github.com/tkrajina/gpxgo v1.4.0
 )
 

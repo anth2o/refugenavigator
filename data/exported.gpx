@@ -17,17 +17,22 @@
 	</metadata>
 	<wpt lat="44.91067" lon="5.5021">
 		<name>Refuge de la Jasse du Play</name>
+		<cmt>https://www.refuges.info/point/28/cabane-non-gardee/refuge-de-la-Jasse-du-Play/</cmt>
 	</wpt>
 	<wpt lat="44.90526" lon="5.51051">
 		<name>Fontaine du Play</name>
+		<cmt>https://www.refuges.info/point/1198/point-d-eau/fontaine-du-Play/</cmt>
 	</wpt>
 	<wpt lat="44.9035" lon="5.5093">
 		<name>Deuxième fontaine du Play</name>
+		<cmt>https://www.refuges.info/point/1199/point-d-eau/deuxieme-fontaine-du-Play/</cmt>
 	</wpt>
 	<wpt lat="44.90792" lon="5.52081">
 		<name>Rocher de Séguret</name>
+		<cmt>https://www.refuges.info/point/1987/sommet/rocher-de-Seguret/</cmt>
 	</wpt>
 	<wpt lat="44.90996" lon="5.5173">
 		<name>Pas de Bèrrièves</name>
+		<cmt>https://www.refuges.info/point/1986/passage-delicat/pas-de-Berrieves/</cmt>
 	</wpt>
 </gpx>

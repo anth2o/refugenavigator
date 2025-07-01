@@ -48,6 +48,7 @@ func (f Feature) ToGpx() *gpx.GPXPoint {
 		Point:       point,
 		Name:        f.Properties.Name,
 		Description: gpx.CDATA(formatStringForGpx(f.Properties.Description.Value)),
+		Comment:     f.Properties.Link,
 	}
 }
 

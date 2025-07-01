@@ -3,7 +3,6 @@ package tests
 import (
 	"fmt"
 	"os"
-	"reflect"
 	"strconv"
 	"strings"
 	"testing"
@@ -11,6 +10,7 @@ import (
 	"net/url"
 
 	"github.com/anth2o/refugenavigator/internal/scrapper"
+	"github.com/google/go-cmp/cmp"
 )
 
 type UnifiedQuerier struct {
@@ -108,13 +108,9 @@ func TestGetFeatureCollection(t *testing.T) {
 	querier := UnifiedQuerier{t: t}
 	featureCollection := scrapper.GetFeatureCollection(bbox, querier)
 	expectedFeatureCollection := getFeatureCollectionTest()
-	if len(featureCollection.Features) != len(expectedFeatureCollection.Features) {
-		t.Errorf("GetFeatureCollection() has length %v, want %v", len(featureCollection.Features), len(expectedFeatureCollection.Features))
-	}
-	for i := range featureCollection.Features {
-		if !reflect.DeepEqual(featureCollection.Features[i], expectedFeatureCollection.Features[i]) {
-			t.Errorf("GetFeatureCollection() = %v, want %v", featureCollection.Features[i], expectedFeatureCollection.Features[i])
-		}
+	diff := cmp.Diff(featureCollection, expectedFeatureCollection)
+	if diff != "" {
+		t.Errorf("GetFeatureCollection() did not produce the expected FeatureCollection:\n%s", diff)
 	}
 }
 
@@ -122,8 +118,9 @@ func TestGetFeature(t *testing.T) {
 	querier := UnifiedQuerier{t: t}
 	feature := *scrapper.GetFeature(1198, querier)
 	expectedFeature := getFeatureCollectionEnrichedTest().Features[1]
-	if !reflect.DeepEqual(feature, expectedFeature) {
-		t.Errorf("GetFeature() = %v, want %v", feature, expectedFeature)
+	diff := cmp.Diff(feature, expectedFeature)
+	if diff != "" {
+		t.Errorf("GetFeature() did not produce the expected Feature:\n%s", diff)
 	}
 }
 
@@ -133,12 +130,8 @@ func TestEnrichFeatureCollection(t *testing.T) {
 	featureCollection := scrapper.GetFeatureCollection(bbox, querier)
 	scrapper.EnrichFeatureCollection(featureCollection, querier)
 	expectedFeatureCollection := getFeatureCollectionEnrichedTest()
-	if len(featureCollection.Features) != len(expectedFeatureCollection.Features) {
-		t.Errorf("EnrichFeatureCollection() has length %v, want %v", len(featureCollection.Features), len(expectedFeatureCollection.Features))
-	}
-	for i := range featureCollection.Features {
-		if !reflect.DeepEqual(featureCollection.Features[i], expectedFeatureCollection.Features[i]) {
-			t.Errorf("EnrichFeatureCollection() = %v, want %v", featureCollection.Features[i], expectedFeatureCollection.Features[i])
-		}
+	diff := cmp.Diff(featureCollection, expectedFeatureCollection)
+	if diff != "" {
+		t.Errorf("EnrichFeatureCollection() did not produce the expected FeatureCollection:\n%s", diff)
 	}
 }
