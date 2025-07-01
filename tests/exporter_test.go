@@ -13,9 +13,10 @@ func checkExport(featureCollection *scrapper.FeatureCollection, t *testing.T, ex
 	var f *os.File
 	var err error
 	expectedFile = "../data/" + expectedFile
-	update := false // set this boolean to true to update the expected file, but don't commit it to true
+	update := false
 	if update {
 		f, err = os.Create(expectedFile)
+		t.Errorf("Don't let update to true, and check the differences to %s before committing", expectedFile)
 	} else {
 		f, err = os.CreateTemp("", "sample")
 	}
