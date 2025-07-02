@@ -1,0 +1,11 @@
+/* https://github.com/PaulLeCam/react-leaflet/issues/1052#issuecomment-1614424078 */
+.leaflet-container {
+  height: 800px;
+  width: 800px;
+  margin: 0 auto;
+}
+
+/* https://www.npmjs.com/package/react-leaflet-draw */
+.sr-only {
+  display: none;
+}
