@@ -1,0 +1,28 @@
+name: frontend
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🖥️ setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: frontend/package.json
+      - name: ⚙️ install dependencies
+        run: yarn install
+        working-directory: frontend
+      - name: 🔨 build
+        run: yarn run build
+        working-directory: frontend
+      - name: 📦 archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/dist
