@@ -2,7 +2,6 @@ package scrapper
 
 import (
 	"fmt"
-	"os"
 	"strings"
 	"time"
 
@@ -52,28 +51,14 @@ func (f Feature) ToGpx() *gpx.GPXPoint {
 	}
 }
 
-func ExportFeatureCollection(featureCollection *FeatureCollection, outputFile string) {
-	f, err := os.Create(outputFile)
-	if err != nil {
-		fmt.Printf("Error creating file: %v\n", err)
-		return
-	}
-	defer f.Close()
-
-	gpxFile := featureCollection.ToGpx()
-	xmlBytes, err := gpxFile.ToXml(gpx.ToXmlParams{
+func ExportFeatureCollection(featureCollection *FeatureCollection) ([]byte, error) {
+	gpxData := featureCollection.ToGpx()
+	gpxBytes, err := gpxData.ToXml(gpx.ToXmlParams{
 		Version: "1.1",
 		Indent:  true,
 	})
 	if err != nil {
-		fmt.Printf("Error generating XML: %v\n", err)
-		return
+		return nil, err
 	}
-
-	if _, err := f.Write(xmlBytes); err != nil {
-		fmt.Printf("Error writing to file: %v\n", err)
-		return
-	}
-
-	fmt.Printf("GPX was successfully exported to %s\n", outputFile)
+	return gpxBytes, nil
 }

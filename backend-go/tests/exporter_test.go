@@ -29,14 +29,14 @@ func checkExport(featureCollection *scrapper.FeatureCollection, t *testing.T, ex
 	})
 
 	defer guard.Unpatch() // Make sure to unpatch after the test
-	scrapper.ExportFeatureCollection(featureCollection, f.Name())
-
-	exportedGPX, err := os.ReadFile(f.Name())
+	exportedGPX, err := scrapper.ExportFeatureCollection(featureCollection)
 	checkError(err)
 	exportedGPXStr := string(exportedGPX)
+
 	expectedExportedGPX, err := os.ReadFile(expectedFile)
 	checkError(err)
 	expectedExportedGPXStr := string(expectedExportedGPX)
+
 	if exportedGPXStr != expectedExportedGPXStr {
 		diff, err := diffLines(expectedExportedGPXStr, exportedGPXStr)
 		if err != nil {
