@@ -1,0 +1,32 @@
+name: backend-go
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🖥️ setup golang
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: backend-go/go.mod
+      - name: 🧪 run tests
+        working-directory: backend-go
+        run: go test ./tests/... -coverprofile=./coverage.txt -coverpkg=./internal/...
+      - name: 📊 upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: 🔨 build main
+        working-directory: backend-go
+        run: go build ./cmd/main
+      - name: ✨ check gofmt
+        working-directory: backend-go
+        run: test -z "$(gofmt -l .)"
+        env:
+          GOFLAGS: -mod=readonly

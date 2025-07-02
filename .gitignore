@@ -1,5 +1,4 @@
 .vscode
 coverage.*
-main
 data/.*
 output.gpx
