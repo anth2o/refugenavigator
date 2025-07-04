@@ -1,0 +1,24 @@
+name: docker
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🔨 build docker image
+        run: docker build -t refugenavigator .
+      - name: 🚀 run docker
+        id: run
+        run: |
+          container_id=$(docker run -d -p 8080:8080 refugenavigator)
+          echo "::set-output name=container_id::$container_id"
+      - name: 🔍 check docker
+        run: curl http://localhost:8080/api/health
+      - name: 🛑 stop docker
+        run: docker stop ${{ steps.run.outputs.container_id }}

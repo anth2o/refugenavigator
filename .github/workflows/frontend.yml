@@ -1,6 +1,8 @@
 name: frontend
 
 on:
+  release:
+    types: [published]
   pull_request:
   push:
     branches:

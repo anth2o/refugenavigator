@@ -17,6 +17,7 @@ func SetupRoutes() *gin.Engine {
 		AllowOrigins: []string{"http://127.0.0.1:5173"},
 		AllowMethods: []string{"GET"},
 	}))
+	engine.GET("/api/health", getHealth)
 	engine.GET("/api/gpx", getGPX)
 	engine.Static("/site", "../frontend/dist")
 	return engine
@@ -29,6 +30,10 @@ func getQuery(c *gin.Context, key string) string {
 		return ""
 	}
 	return value
+}
+
+func getHealth(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 
 func getGPX(c *gin.Context) {
