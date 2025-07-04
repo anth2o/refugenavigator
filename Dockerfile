@@ -19,4 +19,5 @@ COPY --from=backend-builder /app/main /app/backend-go/main
 COPY --from=frontend-builder /app/dist /app/frontend/dist
 WORKDIR /app/backend-go
 ENV GIN_MODE=release
+ENV PORT=8080
 CMD ["./main"]

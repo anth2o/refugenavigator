@@ -1,6 +1,5 @@
 import axios from "axios";
 import type { AxiosResponse } from "axios";
-import { API_CONFIG } from "./config";
 import type { BoundingBox } from "./types/coordinates";
 
 function boundingBoxToQueryParams(boundingBox: BoundingBox): string {
@@ -11,8 +10,12 @@ export async function downloadGpx(
   boundingBox: BoundingBox,
   filename: string = "route.gpx"
 ): Promise<void> {
+  let baseUrl = "";
+  if (import.meta.env.MODE === "development") {
+    baseUrl = "http://127.0.0.1:8080";
+  }
   const response: AxiosResponse<Blob> = await axios.get(
-    `${API_CONFIG.baseUrl}/api/gpx?${boundingBoxToQueryParams(boundingBox)}`,
+    `${baseUrl}/api/gpx?${boundingBoxToQueryParams(boundingBox)}`,
     {
       responseType: "blob",
       headers: {

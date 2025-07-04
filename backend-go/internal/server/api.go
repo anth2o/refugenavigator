@@ -3,7 +3,9 @@ package server
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/anth2o/refugenavigator/internal/scrapper"
@@ -11,16 +13,39 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes() *gin.Engine {
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "8080"
+	}
+	return port
+}
+
+func setupRoutes() *gin.Engine {
+	fmt.Println("Setting up routes")
+	defer func() { fmt.Println("Routes set up") }()
 	engine := gin.Default()
-	engine.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://127.0.0.1:5173"},
-		AllowMethods: []string{"GET"},
-	}))
+	if mode := os.Getenv("GIN_MODE"); mode != "release" {
+		// for local dev with yarn run dev, could be optimized by removing it from prod docker
+		engine.Use(cors.New(cors.Config{
+			AllowOrigins: []string{"http://127.0.0.1:5173"},
+			AllowMethods: []string{"GET"},
+		}))
+	}
 	engine.GET("/api/health", getHealth)
 	engine.GET("/api/gpx", getGPX)
 	engine.Static("/site", "../frontend/dist")
+	engine.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusPermanentRedirect, "/site")
+	})
 	return engine
+}
+
+func Run() {
+	engine := setupRoutes()
+	if err := engine.Run(":" + getPort()); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func getQuery(c *gin.Context, key string) string {
