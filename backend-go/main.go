@@ -8,7 +8,7 @@ import (
 
 func main() {
 	engine := server.SetupRoutes()
-	if err := engine.Run(":8080"); err != nil {
+	if err := engine.Run(); err != nil {
 		log.Fatal(err)
 	}
 }
