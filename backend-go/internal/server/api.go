@@ -18,6 +18,7 @@ func SetupRoutes() *gin.Engine {
 		AllowMethods: []string{"GET"},
 	}))
 	engine.GET("/api/gpx", getGPX)
+	engine.Static("/site", "../frontend/dist")
 	return engine
 }
 
