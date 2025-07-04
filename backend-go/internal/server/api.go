@@ -7,12 +7,16 @@ import (
 	"strconv"
 
 	"github.com/anth2o/refugenavigator/internal/scrapper"
-
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func SetupRoutes() *gin.Engine {
 	engine := gin.Default()
+	engine.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://127.0.0.1:5173"},
+		AllowMethods: []string{"GET"},
+	}))
 	engine.GET("/api/gpx", getGPX)
 	return engine
 }
