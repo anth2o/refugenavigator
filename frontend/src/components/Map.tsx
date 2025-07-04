@@ -29,7 +29,10 @@ export const Map = () => {
     });
   };
   return (
-    <Stack alignItems="center" gap={2}>
+    <Stack alignItems="center" justifyContent="center" gap={2} height="100vh">
+      <p style={{ textAlign: "center" }}>
+        Select a rectangle on the map with the upper right button
+      </p>
       <MapContainer center={center} zoom={10}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
