@@ -36,8 +36,21 @@ export const Map = ({ className }: { className?: string }) => {
     map.addLayer(drawnItems);
     drawnItemsRef.current = drawnItems;
     const drawControl = new L.Control.Draw({
+      // don't remove following options: for an unknown reason the associated buttons
+      // don't appear on dev mode, but they do appear in the JS bunde if the false aren't
+      // specified
+      draw: {
+        polyline: false,
+        polygon: false,
+        rectangle: false,
+        circle: false,
+        circlemarker: false,
+        marker: false,
+      },
       edit: {
         featureGroup: drawnItems,
+        edit: false,
+        remove: false,
       },
     });
     map.addControl(drawControl);
