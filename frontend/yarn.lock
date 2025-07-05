@@ -925,7 +925,14 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.15.tgz#596a1747233694d50f6ad8a7869fcb6f56cf5841"
   integrity sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==
 
-"@types/leaflet@^1.9.19":
+"@types/leaflet-draw@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@types/leaflet-draw/-/leaflet-draw-1.0.12.tgz#6b7619618564a4ede0bdec461a50a66fcb53a449"
+  integrity sha512-ayjGxelc3pp7532852Qn/LYHs/CHOcUqM9iDVsXuIXbIGfM2h3OtsHO/sQzFO6GAz2IvslPupgJaYocsY8NH+g==
+  dependencies:
+    "@types/leaflet" "*"
+
+"@types/leaflet@*", "@types/leaflet@^1.9.19":
   version "1.9.19"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.9.19.tgz#432d3c52c52abb3521e5dfcb3e6cfe9653807a6e"
   integrity sha512-pB+n2daHcZPF2FDaWa+6B0a0mSDf4dPU35y5iTXsx7x/PzzshiX5atYiS1jlBn43X7XvM8AP+AB26lnSk0J4GA==
