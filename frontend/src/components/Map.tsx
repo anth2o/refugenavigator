@@ -30,7 +30,7 @@ export const Map = () => {
   };
   return (
     <Stack alignItems="center" justifyContent="center" gap={2} height="100vh">
-      <p style={{ textAlign: "center" }}>
+      <p className="text-center">
         Select a rectangle on the map with the upper right button
       </p>
       <MapContainer center={center} zoom={10}>
