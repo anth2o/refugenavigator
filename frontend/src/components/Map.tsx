@@ -16,7 +16,7 @@ window.type = true; // https://github.com/Leaflet/Leaflet.draw/issues/1026#issue
 
 const center = latLng(44.9, 5.5);
 
-export const Map = () => {
+export const Map = ({ className }: { className?: string }) => {
   const [selectedBoundingBox, setSelectedBoundingBox] =
     useState<BoundingBox | null>(null);
   const [waitingForGpx, setWaitingForGpx] = useState(false);
@@ -29,7 +29,12 @@ export const Map = () => {
     });
   };
   return (
-    <Stack alignItems="center" justifyContent="center" gap={2} height="100vh">
+    <Stack
+      alignItems="center"
+      justifyContent="center"
+      gap={2}
+      className={className}
+    >
       <p className="text-center">
         Select a rectangle on the map with the upper right button
       </p>
