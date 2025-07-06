@@ -11,7 +11,8 @@ jobs:
   backend-go:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
       - name: 🖥️ setup golang
         uses: actions/setup-go@v5
         with:
@@ -35,7 +36,8 @@ jobs:
   frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
       - name: 🖥️ setup node.js
         uses: actions/setup-node@v4
         with:
@@ -53,17 +55,37 @@ jobs:
           path: frontend/dist
 
   docker:
+    env:
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      IMAGE_NAME: refugenavigator
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      - name: 🔑 authenticate to GCP
+        uses: google-github-actions/auth@v2.1.10
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: ☁️ set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2.1.4
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
       - name: 🔨 build docker image
-        run: docker build -t refugenavigator .
+        run: docker build -t ${{ env.IMAGE_NAME }} .
       - name: 🚀 run docker
         id: run
         run: |
-          container_id=$(docker run -d -p 8080:8080 refugenavigator)
-          echo "::set-output name=container_id::$container_id"
+          container_id=$(docker run -d -p 8080:8080 ${{ env.IMAGE_NAME }})
+          echo "container_id=$container_id" >> $GITHUB_OUTPUT
       - name: 🔍 check docker
         run: curl http://localhost:8080/api/health
       - name: 🛑 stop docker
         run: docker stop ${{ steps.run.outputs.container_id }}
+      - name: 🔐 login to docker registry
+        run: gcloud auth configure-docker
+      - name: 📤 push to registry with commit SHA
+        run: |
+          PUSHED_IMAGE_NAME=gcr.io/$PROJECT_ID/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          docker tag ${{ env.IMAGE_NAME }} $PUSHED_IMAGE_NAME
+          docker push $PUSHED_IMAGE_NAME
