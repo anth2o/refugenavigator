@@ -1,0 +1,69 @@
+name: pipeline
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  backend-go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🖥️ setup golang
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: backend-go/go.mod
+      - name: 🧪 run tests
+        working-directory: backend-go
+        run: go test ./tests/... -coverprofile=./coverage.txt -coverpkg=./internal/...
+      - name: 📊 upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: 🔨 build main
+        working-directory: backend-go
+        run: go build .
+      - name: ✨ check gofmt
+        working-directory: backend-go
+        run: test -z "$(gofmt -l .)"
+        env:
+          GOFLAGS: -mod=readonly
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🖥️ setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: frontend/package.json
+      - name: ⚙️ install dependencies
+        run: yarn install
+        working-directory: frontend
+      - name: 🔨 build
+        run: yarn run build
+        working-directory: frontend
+      - name: 📦 archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/dist
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🔨 build docker image
+        run: docker build -t refugenavigator .
+      - name: 🚀 run docker
+        id: run
+        run: |
+          container_id=$(docker run -d -p 8080:8080 refugenavigator)
+          echo "::set-output name=container_id::$container_id"
+      - name: 🔍 check docker
+        run: curl http://localhost:8080/api/health
+      - name: 🛑 stop docker
+        run: docker stop ${{ steps.run.outputs.container_id }}
