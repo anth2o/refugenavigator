@@ -1,7 +1,7 @@
 # Refuge Navigator
 
 [![coverage](https://codecov.io/gh/anth2o/refugenavigator/branch/main/graph/badge.svg?token=J6KEKKL5ZE)](https://codecov.io/gh/anth2o/refugenavigator)
-[![pipeline](https://github.com/anth2o/refugenavigator/actions/workflows/pipeline.yml?query=branch%3Amain/badge.svg)](https://github.com/anth2o/refugenavigator/actions/workflows/pipeline.yml?query=branch%3Amain)
+[![pipeline](https://github.com/anth2o/refugenavigator/actions/workflows/pipeline.yml/badge.svg?query=branch%3Amain)](https://github.com/anth2o/refugenavigator/actions/workflows/pipeline.yml?query=branch%3Amain)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 🚧🚧🚧
