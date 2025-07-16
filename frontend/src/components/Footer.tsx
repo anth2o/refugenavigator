@@ -1,6 +1,13 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { Link, Stack } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import { getGitTag } from "../api";
+
 export const Footer = () => {
+  const { data: gitTag } = useQuery<string | undefined>({
+    queryKey: ["git-tag"],
+    queryFn: getGitTag,
+  });
   return (
     <footer className="text-center text-gray-500 pb-4 px-20">
       <Stack gap={1}>
@@ -10,7 +17,7 @@ export const Footer = () => {
           justifyContent="center"
           gap={2}
         >
-          © {new Date().getFullYear()} Refuge Navigator
+          © {new Date().getFullYear()} Refuge Navigator{gitTag ? `(${gitTag})` : ""}
           <Link
             href="https://github.com/anth2o/refugenavigator"
             color="inherit"

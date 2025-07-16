@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/anth2o/refugenavigator/internal/scrapper"
 	"github.com/gin-contrib/cors"
@@ -34,6 +35,7 @@ func setupRoutes() *gin.Engine {
 	}
 	engine.GET("/api/health", getHealth)
 	engine.GET("/api/gpx", getGPX)
+	engine.GET("/api/git-tag", getGitTag)
 	engine.Static("/site", "../frontend/dist")
 	engine.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusPermanentRedirect, "/site")
@@ -96,4 +98,14 @@ func getGPX(c *gin.Context) {
 	c.Header("Content-Type", "application/gpx+xml")
 	c.Header("Content-Disposition", "attachment; filename=route.gpx")
 	c.Data(200, "application/gpx+xml", gpxBytes)
+}
+
+func getGitTag(c *gin.Context) {
+	gitHeadBytes, err := os.ReadFile("../.git-tag")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	gitHead := strings.TrimSpace(string(gitHeadBytes))
+	c.JSON(http.StatusOK, gin.H{"tag": gitHead})
 }

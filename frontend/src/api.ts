@@ -10,11 +10,15 @@ function BoundingBoxToFileName(boundingBox: BoundingBox): string {
   return `refugenavigator_export_${boundingBox.southWest.lat.toFixed(3)}_${boundingBox.southWest.lng.toFixed(3)}_${boundingBox.northEast.lat.toFixed(3)}_${boundingBox.northEast.lng.toFixed(3)}.gpx`;
 }
 
-export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
-  let baseUrl = "";
+function getBaseUrl(): string {
   if (import.meta.env.MODE === "development") {
-    baseUrl = "http://127.0.0.1:8080";
+    return "http://127.0.0.1:8080";
   }
+  return "";
+}
+
+export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
+  const baseUrl = getBaseUrl();
   const response: AxiosResponse<Blob> = await axios.get(
     `${baseUrl}/api/gpx?${boundingBoxToQueryParams(boundingBox)}`,
     {
@@ -35,4 +39,12 @@ export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
   a.click();
   window.URL.revokeObjectURL(url);
   document.body.removeChild(a);
+}
+
+export async function getGitTag(): Promise<string> {
+  const baseUrl = getBaseUrl();
+  const response: AxiosResponse<{ tag: string }> = await axios.get(
+    `${baseUrl}/api/git-tag`
+  );
+  return response.data.tag;
 }
