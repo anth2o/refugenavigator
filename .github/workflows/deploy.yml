@@ -33,7 +33,7 @@ jobs:
       - name: 📤 push to registry with tag
         id: push
         run: |
-          BASE_IMAGE_NAME=gcr.io/$PROJECT_ID/${{ env.IMAGE_NAME }}
+          BASE_IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}
           COMMIT_IMAGE_NAME=$BASE_IMAGE_NAME:31cba0c822d5b35d3e4bbaa893fc9b3768015d1d
           TAG_IMAGE_NAME=$BASE_IMAGE_NAME:test
           docker pull $COMMIT_IMAGE_NAME

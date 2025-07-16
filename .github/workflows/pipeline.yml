@@ -56,7 +56,6 @@ jobs:
 
   docker:
     env:
-      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
       IMAGE_NAME: refugenavigator
       REGION: europe-west1
     runs-on: ubuntu-latest
@@ -89,6 +88,6 @@ jobs:
         run: gcloud auth configure-docker
       - name: 📤 push to registry with commit SHA
         run: |
-          PUSHED_IMAGE_NAME=gcr.io/$PROJECT_ID/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          PUSHED_IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           docker tag ${{ env.IMAGE_NAME }} $PUSHED_IMAGE_NAME
           docker push $PUSHED_IMAGE_NAME
