@@ -52,7 +52,7 @@ func parseFeatureCollection(body []byte) *FeatureCollection {
 }
 
 func GetFeatureCollection(bbox BoundingBox, querier Querier) *FeatureCollection {
-	body := query(baseUrl+"/bbox?"+bbox.String(), querier)
+	body := query(baseUrl+"/bbox?nb_points=all&"+bbox.String(), querier)
 	return parseFeatureCollection(body)
 }
 

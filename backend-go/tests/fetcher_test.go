@@ -92,7 +92,7 @@ type UnifiedQuerier struct {
 func (q UnifiedQuerier) QueryUrl(url string) []byte {
 	// Check if this is a bbox query
 	if strings.Contains(url, "/bbox") {
-		expectedUrl := scrapper.GetBaseUrl() + "/bbox?" + getBoundingBoxStringTest()
+		expectedUrl := scrapper.GetBaseUrl() + "/bbox?nb_points=all&" + getBoundingBoxStringTest()
 		if url != expectedUrl {
 			q.t.Errorf("QueryUrl() = %s, want %s", url, expectedUrl)
 		}
