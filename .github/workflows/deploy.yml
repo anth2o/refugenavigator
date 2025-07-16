@@ -1,0 +1,46 @@
+name: deploy
+
+on:
+  release:
+    types:
+      - published
+
+env:
+  IMAGE_NAME: refugenavigator
+  SERVICE_NAME: refugenavigator
+  REGION: europe-west1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+      - name: 🔑 authenticate to GCP
+        uses: google-github-actions/auth@v2.1.10
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: ☁️ set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2.1.4
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: 🔐 login to docker registry
+        run: gcloud auth configure-docker
+      - name: 📤 push to registry with tag
+        id: push
+        run: |
+          BASE_IMAGE_NAME=gcr.io/$PROJECT_ID/${{ env.IMAGE_NAME }}
+          COMMIT_IMAGE_NAME=$BASE_IMAGE_NAME:${{ github.sha }}
+          TAG_IMAGE_NAME=$BASE_IMAGE_NAME:${{ github.ref }}
+          docker pull $COMMIT_IMAGE_NAME
+          docker tag $COMMIT_IMAGE_NAME $TAG_IMAGE_NAME
+          docker push $TAG_IMAGE_NAME
+          echo "tag_image_name=$TAG_IMAGE_NAME" >> $GITHUB_OUTPUT
+      - name: ✨ deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+              --image ${{ steps.push.outputs.tag_image_name }} \
+              --region ${{ env.REGION }}

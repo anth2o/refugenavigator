@@ -58,10 +58,13 @@ jobs:
     env:
       PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
       IMAGE_NAME: refugenavigator
+      REGION: europe-west1
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-tags: true
       - name: 🔑 authenticate to GCP
         uses: google-github-actions/auth@v2.1.10
         with:
