@@ -10,6 +10,8 @@ import { downloadGpx } from "../api";
 import type { BoundingBox } from "../types/coordinates";
 import DownloadIcon from "@mui/icons-material/Download";
 import Stack from "@mui/material/Stack";
+import ClearIcon from "@mui/icons-material/Clear";
+import DrawIcon from "@mui/icons-material/Draw";
 
 window.type = true; // https://github.com/Leaflet/Leaflet.draw/issues/1026#issuecomment-986702652
 
@@ -18,6 +20,7 @@ const initialZoom = 10;
 
 export const Map = ({ className }: { className?: string }) => {
   const [rectangle, setRectangle] = useState<Polyline | null>(null);
+  const [isDrawing, setIsDrawing] = useState(false);
   const [waitingForGpx, setWaitingForGpx] = useState(false);
   const mapRef = useRef<L.DrawMap | null>(null);
   const drawnItemsRef = useRef<L.FeatureGroup | null>(null);
@@ -64,10 +67,12 @@ export const Map = ({ className }: { className?: string }) => {
   function clearDrawing() {
     setRectangle(null);
     drawnItemsRef.current!.clearLayers();
+    setIsDrawing(false);
   }
 
   function onStartDrawing() {
     clearDrawing();
+    setIsDrawing(true);
     const drawHandler = new L.Draw.Rectangle(mapRef.current!);
     drawHandler.enable();
   }
@@ -75,6 +80,19 @@ export const Map = ({ className }: { className?: string }) => {
   function onCreateDrawing(e: LeafletEvent) {
     drawnItemsRef.current!.addLayer(e.layer);
     setRectangle(e.layer);
+    setIsDrawing(false);
+  }
+
+  async function onDownloadGpx() {
+    if (!rectangle) return;
+    setWaitingForGpx(true);
+    const bounds = rectangle.getBounds();
+    const boundingBox: BoundingBox = {
+      northEast: bounds.getNorthEast(),
+      southWest: bounds.getSouthWest(),
+    };
+    await downloadGpx(boundingBox);
+    setWaitingForGpx(false);
   }
 
   return (
@@ -87,30 +105,33 @@ export const Map = ({ className }: { className?: string }) => {
       {/* https://leafletjs.com/examples/quick-start/ */}
       <div id="map"></div>
       <Stack direction="row" gap={2}>
-        <Button onClick={onStartDrawing} variant="contained">
-          Draw a rectangle
+        <Button
+          onClick={clearDrawing}
+          variant="contained"
+          disabled={!rectangle}
+          color="error"
+          startIcon={<ClearIcon />}
+        >
+          Clear
         </Button>
-        <span>
-          <Button
-            onClick={async () => {
-              if (!rectangle) return;
-              setWaitingForGpx(true);
-              const bounds = rectangle.getBounds();
-              const boundingBox: BoundingBox = {
-                northEast: bounds.getNorthEast(),
-                southWest: bounds.getSouthWest(),
-              };
-              await downloadGpx(boundingBox);
-              setWaitingForGpx(false);
-            }}
-            disabled={!rectangle}
-            loading={waitingForGpx}
-            startIcon={<DownloadIcon />}
-            variant="contained"
-          >
-            Download GPX
-          </Button>
-        </span>
+        <Button
+          onClick={onStartDrawing}
+          variant="contained"
+          disabled={isDrawing}
+          color="success"
+          startIcon={<DrawIcon />}
+        >
+          Draw
+        </Button>
+        <Button
+          onClick={onDownloadGpx}
+          disabled={!rectangle}
+          loading={waitingForGpx}
+          startIcon={<DownloadIcon />}
+          variant="contained"
+        >
+          Download
+        </Button>
       </Stack>
     </Stack>
   );
