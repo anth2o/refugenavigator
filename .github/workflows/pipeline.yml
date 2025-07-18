@@ -64,6 +64,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-tags: true
+          fetch-depth: 0
       - name: 🔑 authenticate to GCP
         uses: google-github-actions/auth@v2.1.10
         with:
@@ -81,7 +82,10 @@ jobs:
           container_id=$(docker run -d -p 8080:8080 ${{ env.IMAGE_NAME }})
           echo "container_id=$container_id" >> $GITHUB_OUTPUT
       - name: 🔍 check docker
-        run: curl http://localhost:8080/api/health
+        run: |
+          curl http://localhost:8080/api/git-tag
+          echo ""
+          git describe --tags --always
       - name: 🛑 stop docker
         run: docker stop ${{ steps.run.outputs.container_id }}
       - name: 🔐 login to docker registry
