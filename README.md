@@ -4,13 +4,18 @@
 [![pipeline](https://github.com/anth2o/refugenavigator/actions/workflows/pipeline.yml/badge.svg?query=branch%3Amain)](https://github.com/anth2o/refugenavigator/actions/workflows/pipeline.yml?query=branch%3Amain)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-🚧🚧🚧
+You can access the latest version of Refuge Navigator at [https://refugenavigator.com](https://refugenavigator.com).
 
-The purpose of Refuge Navigator is to:
+The purpose of this project is to export the data from the awesome website [www.refuges.info](https://www.refuges.info/) as GPX so that I can bring them offline when hiking. I personally import the downloaded GPX files to [Iphigénie](https://www.iphigen.ie/), but any app with support for GPX waypoints should do it.
 
-- work on my first Go project
-- fetch data from the awesome website [www.refuges.info](https://www.refuges.info/) and export them as GPX so that I can bring them offline when hiking.
-  ![refuges.info](images/refuges.info.png)
+It's also the opportunity for me to work on:
+
+- My first Go project since I've mostly worked with Python in all my previous projects
+- A CI/CD pipeline, with automated deployments to Google Cloud Run on each release [here](https://refugenavigator.com), and on each push to the main branch or a pull request [here](https://dev.refugenavigator.com)
+- A little bit of frontend with React and Leaflet to have an interactive map
+- In the future, integration with LLMs to be able to summarize unstructured data (such as the comments on water points) or to be able to select relevant pictures about waypoints
+
+![refuges.info](images/refuges.info.png)
 
 ## Credits
 
