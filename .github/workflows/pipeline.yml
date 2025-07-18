@@ -59,8 +59,8 @@ jobs:
   docker:
     env:
       REGION: europe-west1
-      COMMIT_IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.sha }}
-      TAG_IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.ref_name }}
+      COMMIT_IMAGE_NAME: eu.gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.sha }}
+      TAG_IMAGE_NAME: eu.gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.ref_name }}
       SERVICE_NAME: refugenavigator
     runs-on: ubuntu-latest
     steps:
