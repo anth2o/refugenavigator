@@ -2,14 +2,15 @@ name: pipeline
 
 on:
   pull_request:
-  push:
-    branches:
-      - main
+  release:
+    types: 
+      - published
 
 jobs:
 
   backend-go:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
@@ -35,6 +36,7 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
@@ -56,8 +58,10 @@ jobs:
 
   docker:
     env:
-      IMAGE_NAME: refugenavigator
       REGION: europe-west1
+      COMMIT_IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.sha }}
+      TAG_IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.ref}}
+      SERVICE_NAME: refugenavigator
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout
@@ -75,11 +79,11 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
       - name: 🔨 build docker image
-        run: docker build -t ${{ env.IMAGE_NAME }} .
+        run: docker build -t ${{ env.COMMIT_IMAGE_NAME }} .
       - name: 🚀 run docker
         id: run
         run: |
-          container_id=$(docker run -d -p 8080:8080 ${{ env.IMAGE_NAME }})
+          container_id=$(docker run -d -p 8080:8080 ${{ env.COMMIT_IMAGE_NAME }})
           echo "container_id=$container_id" >> $GITHUB_OUTPUT
       - name: 🔍 check docker
         run: |
@@ -92,6 +96,15 @@ jobs:
         run: gcloud auth configure-docker
       - name: 📤 push to registry with commit SHA
         run: |
-          PUSHED_IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          docker tag ${{ env.IMAGE_NAME }} $PUSHED_IMAGE_NAME
-          docker push $PUSHED_IMAGE_NAME
+          docker push ${{ env.COMMIT_IMAGE_NAME }}
+      - name: 📤 push to registry with tag
+        if: github.event_name == 'release'
+        run: |
+          docker tag ${{ env.COMMIT_IMAGE_NAME }} ${{ env.TAG_IMAGE_NAME }}
+          docker push ${{ env.TAG_IMAGE_NAME }}
+      - name: ✨ deploy to Cloud Run
+        if: github.event_name == 'release'
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+              --image ${{ env.TAG_IMAGE_NAME }} \
+              --region ${{ env.REGION }}

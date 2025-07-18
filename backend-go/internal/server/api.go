@@ -33,7 +33,6 @@ func setupRoutes() *gin.Engine {
 			AllowMethods: []string{"GET"},
 		}))
 	}
-	engine.GET("/api/health", getHealth)
 	engine.GET("/api/gpx", getGPX)
 	engine.GET("/api/git-tag", getGitTag)
 	engine.Static("/site", "../frontend/dist")
@@ -57,10 +56,6 @@ func getQuery(c *gin.Context, key string) string {
 		return ""
 	}
 	return value
-}
-
-func getHealth(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 
 func getGPX(c *gin.Context) {
