@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format": "prettier --write \"src/**/*.ts*\""
+    "format": "prettier --write \"src/**/*.ts*\"",
+    "format:check": "prettier --check \"src/**/*.ts*\""
+
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
