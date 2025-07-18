@@ -1,6 +1,6 @@
+import type { BoundingBox } from "./types/coordinates";
 import axios from "axios";
 import type { AxiosResponse } from "axios";
-import type { BoundingBox } from "./types/coordinates";
 
 function boundingBoxToQueryParams(boundingBox: BoundingBox): string {
   return `SouthWest.Latitude=${boundingBox.southWest.lat}&SouthWest.Longitude=${boundingBox.southWest.lng}&NorthEast.Latitude=${boundingBox.northEast.lat}&NorthEast.Longitude=${boundingBox.northEast.lng}`;

@@ -8,9 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format": "prettier --write \"src/**/*.ts*\"",
-    "format:check": "prettier --check \"src/**/*.ts*\""
-
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -31,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/leaflet": "^1.9.19",
     "@types/leaflet-draw": "^1.0.12",
     "@types/react": "^18.0",

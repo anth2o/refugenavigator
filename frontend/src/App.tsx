@@ -1,6 +1,6 @@
+import { Footer } from "./components/Footer";
 import { Map } from "./components/Map";
 import { Stack } from "@mui/material";
-import { Footer } from "./components/Footer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {

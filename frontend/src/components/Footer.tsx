@@ -1,7 +1,7 @@
+import { getGitTag } from "../api";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { Link, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getGitTag } from "../api";
 
 export const Footer = () => {
   const { data: gitTag } = useQuery<string | undefined>({

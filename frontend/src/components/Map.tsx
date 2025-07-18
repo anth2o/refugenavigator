@@ -1,17 +1,17 @@
-import L, { type LeafletEvent } from "leaflet";
-import "./Map.css";
-import "leaflet/dist/leaflet.css";
-import "leaflet-draw/dist/leaflet.draw.css";
-import "leaflet-draw";
-import { latLng, Polyline } from "leaflet";
-import { useEffect, useRef, useState } from "react";
-import Button from "@mui/material/Button";
 import { downloadGpx } from "../api";
 import type { BoundingBox } from "../types/coordinates";
-import DownloadIcon from "@mui/icons-material/Download";
-import Stack from "@mui/material/Stack";
+import "./Map.css";
 import ClearIcon from "@mui/icons-material/Clear";
+import DownloadIcon from "@mui/icons-material/Download";
 import DrawIcon from "@mui/icons-material/Draw";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import L, { type LeafletEvent } from "leaflet";
+import { latLng, Polyline } from "leaflet";
+import "leaflet-draw";
+import "leaflet-draw/dist/leaflet.draw.css";
+import "leaflet/dist/leaflet.css";
+import { useEffect, useRef, useState } from "react";
 
 window.type = true; // https://github.com/Leaflet/Leaflet.draw/issues/1026#issuecomment-986702652
 
