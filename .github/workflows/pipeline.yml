@@ -78,8 +78,12 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2.1.4
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: 📥 pull from registry with commit SHA for docker cache
+        if: github.event_name == 'release'
+        run: |
+          docker pull ${{ env.COMMIT_IMAGE_NAME }}
       - name: 🔨 build docker image
-        run: docker build -t ${{ env.COMMIT_IMAGE_NAME }} .
+        run: docker build -t ${{ env.COMMIT_IMAGE_NAME }} --cache-from ${{ env.COMMIT_IMAGE_NAME }} .
       - name: 🚀 run docker
         id: run
         run: |
@@ -95,6 +99,7 @@ jobs:
       - name: 🔐 login to docker registry
         run: gcloud auth configure-docker
       - name: 📤 push to registry with commit SHA
+        if: github.event_name != 'release'
         run: |
           docker push ${{ env.COMMIT_IMAGE_NAME }}
       - name: 📤 push to registry with tag
