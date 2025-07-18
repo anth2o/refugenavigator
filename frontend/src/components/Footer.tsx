@@ -17,7 +17,8 @@ export const Footer = () => {
           justifyContent="center"
           gap={2}
         >
-          © {new Date().getFullYear()} Refuge Navigator{gitTag ? ` (${gitTag})` : ""}
+          © {new Date().getFullYear()} Refuge Navigator
+          {gitTag ? ` (${gitTag})` : ""}
           <Link
             href="https://github.com/anth2o/refugenavigator"
             color="inherit"

@@ -26,7 +26,7 @@ export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
       headers: {
         Accept: "application/gpx+xml",
       },
-    }
+    },
   );
 
   // Create a blob URL and trigger download
@@ -44,7 +44,7 @@ export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
 export async function getGitTag(): Promise<string> {
   const baseUrl = getBaseUrl();
   const response: AxiosResponse<{ tag: string }> = await axios.get(
-    `${baseUrl}/api/git-tag`
+    `${baseUrl}/api/git-tag`,
   );
   return response.data.tag;
 }
