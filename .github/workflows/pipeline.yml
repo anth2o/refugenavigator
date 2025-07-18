@@ -1,6 +1,9 @@
 name: pipeline
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
   release:
     types: 
@@ -79,7 +82,7 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
       - name: 📥 pull from registry with commit SHA for docker cache
-        if: github.event_name == 'release'
+        if: github.event_name != 'pull_request'
         run: |
           docker pull ${{ env.COMMIT_IMAGE_NAME }}
       - name: 🔨 build docker image
@@ -99,7 +102,6 @@ jobs:
       - name: 🔐 login to docker registry
         run: gcloud auth configure-docker
       - name: 📤 push to registry with commit SHA
-        if: github.event_name != 'release'
         run: |
           docker push ${{ env.COMMIT_IMAGE_NAME }}
       - name: 📤 push to registry with tag
@@ -113,3 +115,10 @@ jobs:
           gcloud run deploy ${{ env.SERVICE_NAME }} \
               --image ${{ env.TAG_IMAGE_NAME }} \
               --region ${{ env.REGION }}
+      - name: ✨ deploy to dev Cloud Run
+        if: github.event_name == 'push' && github.ref_name == 'main'
+        run: |
+          gcloud run deploy dev${{ env.SERVICE_NAME }} \
+              --image ${{ env.COMMIT_IMAGE_NAME }} \
+              --region ${{ env.REGION }}
+      
