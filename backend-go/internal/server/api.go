@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 
@@ -22,7 +23,25 @@ func getPort() string {
 	return port
 }
 
-func setupRoutes() *gin.Engine {
+func GetGitTag() string {
+	cmd := exec.Command("git", "describe", "--tags", "--always")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Printf("Error running git describe: %s", err)
+		return ""
+	}
+	return strings.TrimSpace(string(output))
+}
+
+func SetupRoutes() *gin.Engine {
+	tag := GetGitTag()
+	if tag != "" {
+		err := os.WriteFile("../.git-tag", []byte(tag), 0644)
+		if err != nil {
+			log.Printf("Error writing git tag to file: %s", err)
+		}
+	}
+
 	fmt.Println("Setting up routes")
 	defer func() { fmt.Println("Routes set up") }()
 	engine := gin.Default()
@@ -43,7 +62,7 @@ func setupRoutes() *gin.Engine {
 }
 
 func Run() {
-	engine := setupRoutes()
+	engine := SetupRoutes()
 	if err := engine.Run(":" + getPort()); err != nil {
 		log.Fatal(err)
 	}
@@ -81,8 +100,8 @@ func getGPX(c *gin.Context) {
 	}
 	fmt.Printf("bbox: %s\n", bbox)
 
-	featureCollection := scrapper.GetFeatureCollection(bbox, nil)
-	scrapper.EnrichFeatureCollection(featureCollection, nil)
+	featureCollection := scrapper.GetFeatureCollection(bbox)
+	scrapper.EnrichFeatureCollection(featureCollection)
 
 	gpxBytes, err := scrapper.ExportFeatureCollection(featureCollection)
 	if err != nil {

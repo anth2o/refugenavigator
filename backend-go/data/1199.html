@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <title>Deuxième fontaine du Play 1670 m (point d'eau)</title>
+    <link rel="icon" type="image/png" href="/images/icones/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/images/icones/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+                <link type="text/css" rel="stylesheet" href="/vues/style.css.php?1749229210">
+                <link type="text/css" rel="stylesheet" href="/myol/dist/myol-min.css?1749138194">
+      </head>
+
+	<body>
+		<div class="bandeau-haut noprint">
+	<a class="logo-haut" href="/"
+		title="Revenir à l'accueil">
+	</a>
+
+	<form class="recherche-haut"
+		method="get" action="/point_recherche">
+		<input type="text" name="nom" class="input-text" placeholder="Recherche de point">
+		<input type="hidden" name="limite" value="40">
+		<input type="hidden" name="avec_point_osm" value="1">
+		<button type="submit" title="Lancer la recherche" style="border:none">
+			🔍</button>
+		<a href="/point_formulaire_recherche"
+			title="Recherche avancée">
+			🔭</a>
+	</form>
+
+	<div class="menu-haut">
+		<div class="menu-connexion menu-bouton">
+				<span>👤</span><span class="menu-large">Connexion</span>
+			<ul>
+                <form method="post" action="/forum/ucp.php?mode=login">
+              <li>
+                <input type="text" name="username" size="15" placeholder="Nom d’utilisateur"
+                    autocomplete="username">
+              </li><li>
+                <input type="password" name="password" size="15"
+                      placeholder="Mot de passe" autocomplete="current-password">
+              </li><li>
+                <input type="hidden" name="autologin" value="checked">
+                <input type="hidden" name="creation_time"
+                    value="1752938840">
+                <input type="hidden" name="form_token"
+                    value="1407b44a31c6e50a03321556124e3dc6b786a5ba">
+                <input type="hidden" name="redirect"
+                    value="/point/1199">
+                <input type="submit" name="login" value="Connexion">
+              </li>
+              <li><hr></li>
+              <li>
+                <a href="/wiki/cookies">
+                    Utilisation des cookies
+                </a>
+              </li><li>
+                <a href="/forum/app.php/user/forgot_password">
+                    Mot de passe oublié
+                </a>
+              </li><li>
+                <a href="/forum/ucp.php?mode=register">
+                    Créer un compte
+                </a>
+              </li><li>
+                <a href="/forum/ucp.php?mode=login">
+                    Connexion avancée
+                </a>
+              </li>
+            </form>
+            </ul>
+			</div>
+
+		<div class="menu-titre">
+			<span>Forum de </span>
+			<a href="/" title="Revenir à l'accueil">
+				Refuges.info
+			</a>
+		</div>
+
+		<div class="menu-liste menu-bouton">
+			<span>☰</span>
+			<ul>
+				<li class="menu-bouton" style="order:1">
+					<a href="/nouvelles">
+						<span>🔔</span><span>Nouvelles</span>
+					</a>
+					<p>Les entrées les plus récentes</p>
+				</li>
+				<li class="menu-bouton" style="order:2">
+					<a href="/point_ajout">
+						<span>📌</span><span>Ajouter</span>
+					</a>
+					<p>Ajouter une nouvelle cabane ou refuge</p>
+				</li>
+
+				<li class="menu-bouton" style="order:3">
+					<a href="/nav">
+						<span>🌍</span><span>Cartes</span>
+					</a>
+					<p>Afficher les points sur divers fonds de cartes</p>
+				</li>
+				<li class="menu-bouton" style="order:4">
+					<a href="/forum/">
+						<span>💬</span><span>Forum</span>
+					</a>
+					<p>Forum de discussion</p>
+				</li>
+				<li class="menu-bouton" style="order:0">
+					<span class="menu-large">☰</span><span class="menu-large"> Refuges.info</span>
+					<ul>
+						<li>
+							<a href="/"
+								title="Retour à l'entrée du site">
+								Accueil
+							</a>
+						</li><li>
+							<a href="/wiki/">
+								Qui sommes nous ?
+							</a>
+						</li><li>
+							<a href="/point_formulaire_recherche"
+								title="Formulaire de recherche multicritères de points dans la base de données de refuges.info">
+								Recherche de points
+							</a>
+						</li><li>
+							<a href="/wiki/cabane_principe_bonne_conduite">
+								Consignes en cabane
+							</a>
+						</li><li>
+							<a href="/wiki/liens">
+								Liens
+							</a>
+						</li><li>
+							<a href="/gps">
+								Appli GPS
+							</a>
+						</li><hr/><li>
+							<a href="/wiki/contact">
+								Support site
+							</a>
+						</li><li>
+							<a href="/formulaire_exportations"
+								title="Exportation de la base refuges.info aux formats kmz (googlearth compressé), kml (googlearth), gml (Geography Markup Language), GPS (gpx), GPS (gpx simplifié), Garmin points d'intérêts, csv (tableurs)">
+								Export de points
+							</a>
+						</li><li>
+							<a href="/formulaire_rss_et_nouvelles?choix=flux_rss">
+								Flux RSS
+							</a>
+						</li><li>
+							<a href="/api/doc/">
+								Doc API
+							</a>
+						</li><hr/><li>
+							<a href="/wiki/prudence">
+								Règles de prudence
+							</a>
+						</li><li>
+							<a href="/wiki/cookies">
+								Cookies
+							</a>
+						</li><li>
+							<a href="/wiki/licence">
+								Licence
+							</a>
+						</li><li>
+							<a href="/wiki/mentions-legales">
+								Mentions légales
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li style="order:5"><!-- Réserve un espace avant le sous-menu connexion --></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="contenu" id="contenu">
+  <div class="fiche_cadre">
+<!--======================================== DESCRIPTIONS =========================================-->
+<!--======= LIEN DE MODIFICATION (modérateurs et modérateur de fiche) =======-->
+            <!--========================================== FICHE DE ===========================================-->
+      <h1>
+        Deuxième fontaine du Play (1670m), <a href="/wiki/fiche-point-d-eau">point d'eau</a>
+                  <strong>(Débit intermittent)</strong>
+            </h1>
+    </div>
+<!--============================================ CARTE ============================================-->
+          <div id="container-carte-point">
+        <div id="carte-point"></div>
+        <div class="noprint texte-tout-petit"><div class="hide-touch-screen">Ctrl+click: nouvel onglet ; Maj+click: nouvelle fenêtre</div><a href="/nav" title="'Shift + Click gauche' pour ouvrir la carte dans une nouvelle fenêtre">Grande carte</a>
+        </div>
+      </div>
+    <!--======================================== LOCALISATION =========================================-->
+    <p>
+                <b>Localisation montagnarde:</b>
+                                                                  Alpes                                   <sup>
+                    <a href="/nav/352/zone/Alpes/">carte</a>
+                  </sup>
+                ,                                                                  Vercors                                   <sup>
+                    <a href="/nav/4/massif/Vercors/">carte</a>
+                  </sup>
+                ,                                                                  Réserve naturelle des hauts plateaux du Vercors                                   <sup>
+                    <a href="/nav/6792/zone-reglementee/Reserve-naturelle-des-hauts-plateaux-du-Vercors/">carte</a>
+                  </sup>
+                                        <br>
+                <b>Localisation administrative:</b>
+                                                                  France métropolitaine                                   <sup>
+                    <a href="/nav/3277/pays/France-metropolitaine/">carte</a>
+                  </sup>
+                ,                                                                  Auvergne-Rhône-Alpes                                   <sup>
+                    <a href="/nav/5736/region/Auvergne-Rhone-Alpes/">carte</a>
+                  </sup>
+                ,                                                                  Isère                                   <sup>
+                    <a href="/nav/2187/departement/Isere/">carte</a>
+                  </sup>
+                                        <br>
+                <b>Localisation carte:</b>
+                                                                  IGN 3236OT - Villard-De-Lans/Mont Aiguille/Pnr du Vercors                                   <sup>
+                    <a href="/nav/4271/carte/IGN-3236OT---Villard-De-LansMont-AiguillePnr-du-Vercors/">carte</a>
+                  </sup>
+                                        <br>
+          </p>
+<!--================================= DEMANDE DE MODIFICATION =================================-->
+    <div class="noprint bloc_liens_centre">
+      <a class="liens_avec_decoration" href="/point_ajout_commentaire/1199?correction=oui">
+        Demander une modification de la fiche
+      </a>
+    </div>
+<!--================================= AUPRÈS DE QUI SE RENSEIGNER =================================-->
+  <dl class="liste-wri">
+      <!--============================================ ACCÈS ============================================-->
+      <dt style="clear: left;">Accès:</dt>
+      <dd>200m au sud de la première fontaine du Play. Pas de chemin.<br>
+de la première fontaine continuer sous la petite falaise rocheuse<br>
+Redescendre légèrement pour traverser un petit pierrier <br>
+Entrer dans la forêt, la fontaine est là au pied d&#039;épicéas<br>
+Je l&#039;ai trouvé à l&#039;oreille car on ne la voit pas de loin</dd>
+<!--========================================== REMARQUES ==========================================-->
+      <dt>Remarques:</dt>
+      <dd>Pas vraiment une fontaine mais plutôt une simple source non aménagée d&#039;où coule assez peu d&#039;eau</dd>
+<!--================================= INFORMATIONS COMPLÉMENTAIRES ================================-->
+      <!--===================================== POINTS À PROXIMITÉ ======================================-->
+              <dt>Points à proximité (distance à vol d'oiseau):</dt>
+                      <dd>
+              <a href="https://www.refuges.info/point/1198/point-d-eau/fontaine-du-Play/">Fontaine du Play</a>, 
+              point d'eau (altitude: 1670m) situé(e) à 354m            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/1986/passage-delicat/pas-de-Berrieves/">Pas de Bèrrièves</a>, 
+              passage délicat (altitude: 1887m) situé(e) à 1,39km            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/28/cabane-non-gardee/refuge-de-la-Jasse-du-Play/">Refuge de la Jasse du Play</a>, 
+              cabane non gardée (altitude: 1629m) situé(e) à 1,42km            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/1987/sommet/rocher-de-Seguret/">Rocher de Séguret</a>, 
+              sommet (altitude: 2051m) situé(e) à 1,48km            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/2790/point-d-eau/fontaine-de-Berrieves/">Fontaine de Berrièves</a>, 
+              point d'eau (altitude: 1550m) situé(e) à 2,29km            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/1702/point-d-eau/fontaine-de-la-Chau/">Fontaine de la Chau</a>, 
+              point d'eau (altitude: 1620m) situé(e) à 2,29km            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/4066/cabane-non-gardee/cabane-pastorale-de-Gresse/">Cabane pastorale de Gresse</a>, 
+              cabane non gardée (altitude: 1565m) situé(e) à 2,61km            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/1985/sommet/sommet-de-Pierre-Blanche/">Sommet de Pierre Blanche</a>, 
+              sommet (altitude: 2108m) situé(e) à 2,71km            </dd>
+                    <dd>
+              <a href="https://www.refuges.info/point/2682/cabane-non-gardee/Nouvelle-Jasse-de-la-Chau/">Nouvelle Jasse de la Chau</a>, 
+              cabane non gardée (altitude: 1600m) situé(e) à 2,91km            </dd>
+        <!--================================= Si message d'information à afficher =======================================-->
+              <dt>Réglementation particulière :</dt>
+          <dd>
+            Deuxième fontaine du Play est situé·e dans
+                              Réserve naturelle des hauts plateaux du Vercors                            Sont Interdits : Les chiens (même en laisse), les feux, le camping (mais le bivouac, c'est à dire montage de la tente après 17h et démontage avant 9h est autorisé), la cueillette des plantes, le ramassage des fossiles et le dépôt des déchets.Le décollage en parapente y est interdit mais le survol par tout type d'aéronef à plus de 300m est autorisé, le VTT ne sont autorisés que sur la variante GTV. L'escalade n'y est pas réglementée.                          (Plus d'information sur <a href="https://www.parc-du-vercors.fr/RNNHPV">cette réglementation</a>)
+                    </dd>
+      <!--==================== VIGNETTES PHOTOS (CLICABLE POUR ALLER VOIR EN GRAND) =====================-->
+      <!-- Liste des vignettes photos (clicable pour aller voir en grand) -->
+              <dt class="noprint">Photos:</dt> 
+        <dd class="noprint">
+                      <a href="#C49278">
+              <img
+                height="50"
+                style="vertical-align: middle ;"
+                src="/photos_points/49278-reduite.jpeg?1746698166"
+                alt="photo miniature"
+              >
+            </a>
+                      <a href="#C4374">
+              <img
+                height="50"
+                style="vertical-align: middle ;"
+                src="/photos_points/4374-reduite.jpeg?1146502411"
+                alt="photo miniature"
+              >
+            </a>
+                  </dd>
+      <!--========================================= Informations technique sur la fiche =========================================-->
+    <dt>Coordonnées:</dt>
+      <dd class="noprint">
+        Provenance:
+                  Autre              </dd>
+    <dd>
+              <input type="hidden" id="cadre-json" value='{"type":"Point","coordinates":[5.5093,44.9035]}'>
+        <span id="cadre-string"></span>
+        <select id="cadre-select">
+          <option value="dec" selected="selected">Degrés décimaux</option>
+          <option value="dms">Deg Min Sec</option>
+          <option class="xy" value="swiss">Suisse</option>
+          <option value="utm">UTM</option>
+        </select>
+    </dd>
+    <dd class="noprint">
+      Export:
+        <a href="/api/point?id=1199&amp;format=gpx">GPX</a>,
+        <a href="/api/point?id=1199&amp;format=gpx_garmin">Garmin</a>,
+        <a href="/api/point?id=1199&amp;format=kml">KML</a>,
+        <a href="geo:44.9035,5.5093">Géoloc</a><a href="/wiki/geo-uri"><sup>?</sup></a>
+          </dd>
+  </dl>
+<!--============================= Infos assez internes finalement, plutôt pour modérateurs devrais-je dire ===================-->
+  <p class="noprint">
+    Fiche n°1199 sur le site depuis le 20/04/2006      , dernière modification du
+        08/07/2025.
+        </p>
+<!--============================ LIEN VERS LE FORUM D'UN POINT ===========================-->
+  <h5 class="noprint">Discussions sur deuxième fontaine du Play</h5>
+  <p class="noprint" id="forum">
+    <b>
+      Pour les discussions, les questions et les avis, on vous conseille d'utiliser le <a href="/forum/viewtopic.php?t=1251">le forum dédié à deuxième fontaine du Play</a>. Les utilisateurs du site qui "suivent" la discussion du forum seront prévenus par e-mail si vous postez votre message sur le forum. Pour faire part d'une information objective à propos de deuxième fontaine du Play (accès, réglementation, demande de corrections de la fiche), vous pouvez ajouter une information ci-après.
+    </b>
+  </p>
+<!--============================ POSTS LES PLUS RÉCENTS DU FORUM D'UN POINT ===========================-->
+    <div class="point_forum couleur_fond_amplifiee noprint">
+            <p><a href="/forum/viewtopic.php?t=1251">
+          Le forum est vide, n'hésitez pas à y laisser le premier message!
+        </a></p>
+        </div>
+<!--===================================== LIEN AJOUT COMMENTAIRE ====================================-->
+  <h5 class="noprint">Informations récentes</h5>
+    <div class="noprint bloc_liens_centre">
+      <a class="liens_avec_decoration" href="/point_ajout_commentaire/1199">
+        Ajouter une information et/ou une photo
+      </a>
+    </div>
+<!--========================================= COMMENTAIRES =========================================-->
+          <ul class="noprint">
+            <li>
+        <a id="C49278"></a><!-- ici l'id pour l'anchor des petites vignettes du haut -->
+        <div class="bloc_commentaire">
+          <div class='commentaire_metainfo'>Jeudi 8 mai 2025 à 11h56                          par
+                              Do                        </div>
+          <div class="bloc_liens_haut_droit">
+          <a class="liens_avec_decoration" href="/avis_internaute_commentaire/49278/">
+            Info périmée ?</a>
+                    </div>
+
+          <hr class="spacer">
+                     <div class="photos">
+            <a href="/photos_points/49278-originale.jpeg?1746698165">
+              <img src="/photos_points/49278-reduite.jpeg?1746698166" alt="Photo" style="max-width:100%;">
+            </a>
+            <div class="texte_sur_image">02/05/2025</div>
+           </div> 
+                    
+                      <blockquote><p>
+              Le 02/05/25, juste un léger écoulement entre les rochers malgrè l&#039;impressionnant débit de la fontaine principale en cette saison.<br>
+<br>
+J&#039;étais au point indiqué sur les cartes IGN mais cela ne ressemble pas à la photo précédente. Le reste était sec autour.            </p></blockquote>
+                    <hr class="spacer"><!-- pour ne pas avoir la foto qui depasse -->
+        </div>
+      </li>
+          <li>
+        <a id="C43112"></a><!-- ici l'id pour l'anchor des petites vignettes du haut -->
+        <div class="bloc_commentaire">
+          <div class='commentaire_metainfo'>Vendredi 25 août 2023 à 11h18                          par
+                              <a href="/forum/memberlist.php?mode=viewprofile&u=7469">
+                  tybalt30                </a>
+                        </div>
+          <div class="bloc_liens_haut_droit">
+          <a class="liens_avec_decoration" href="/avis_internaute_commentaire/43112/">
+            Info périmée ?</a>
+                    </div>
+
+          <hr class="spacer">
+                    
+                      <blockquote><p>
+              Trouvée ce jour,<br>
+A sec, aucune humidité            </p></blockquote>
+                    <hr class="spacer"><!-- pour ne pas avoir la foto qui depasse -->
+        </div>
+      </li>
+          <li>
+        <a id="C17608"></a><!-- ici l'id pour l'anchor des petites vignettes du haut -->
+        <div class="bloc_commentaire">
+          <div class='commentaire_metainfo'>Mardi 3 septembre 2013 à 08h17                          par
+                              buch                        </div>
+          <div class="bloc_liens_haut_droit">
+          <a class="liens_avec_decoration" href="/avis_internaute_commentaire/17608/">
+            Info périmée ?</a>
+                    </div>
+
+          <hr class="spacer">
+                    
+                      <blockquote><p>
+              nous avons fait le rempli nos bouteilles en 3 minutes ce samedi 31 aôut 2013<br>
+david buch            </p></blockquote>
+                    <hr class="spacer"><!-- pour ne pas avoir la foto qui depasse -->
+        </div>
+      </li>
+          <li>
+        <a id="C12115"></a><!-- ici l'id pour l'anchor des petites vignettes du haut -->
+        <div class="bloc_commentaire">
+          <div class='commentaire_metainfo'>Jeudi 5 août 2010 à 17h03                          par
+                              luc                        </div>
+          <div class="bloc_liens_haut_droit">
+          <a class="liens_avec_decoration" href="/avis_internaute_commentaire/12115/">
+            Info périmée ?</a>
+                    </div>
+
+          <hr class="spacer">
+                    
+                      <blockquote><p>
+              Le 4 aout 2010 quelques gouttes suintes du mini surplomb            </p></blockquote>
+                    <hr class="spacer"><!-- pour ne pas avoir la foto qui depasse -->
+        </div>
+      </li>
+          <li>
+        <a id="C4374"></a><!-- ici l'id pour l'anchor des petites vignettes du haut -->
+        <div class="bloc_commentaire">
+          <div class='commentaire_metainfo'>Lundi 1 mai 2006 à 18h53                          par
+                              J&eacute;r&ocirc;me                        </div>
+          <div class="bloc_liens_haut_droit">
+          <a class="liens_avec_decoration" href="/avis_internaute_commentaire/4374/">
+            Info périmée ?</a>
+                    </div>
+
+          <hr class="spacer">
+                     <div class="photos">
+            <a href="/photos_points/4374-reduite.jpeg?1146502411">
+              <img src="/photos_points/4374-reduite.jpeg?1146502411" alt="Photo" style="max-width:100%;">
+            </a>
+            <div class="texte_sur_image">01/05/2006</div>
+           </div> 
+                    
+                      <blockquote><p>
+              J&#039;ai recherché et je l&#039;ai trouvé cette fontaine,<br>
+Je modifie la fiche pour l&#039;accès et les infos complémentaires            </p></blockquote>
+                    <hr class="spacer"><!-- pour ne pas avoir la foto qui depasse -->
+        </div>
+      </li>
+      </ul>
+  
+<!--================== FIN DE LA PAGE DES POINTS - COMMENTAIRES DIVERS ET VARIÉS ===================-->
+  <p class="noprint">
+    <strong>
+      Avertissement : Les informations fournies sont indicatives. 
+      Elles ne sauraient engager la responsabilité des gestionnaires ou des rédacteurs
+      dans l'hypothèse où les utilisateurs de ces informations 
+      n'observeraient pas les règles de prudence que la montagne impose. 
+      Soyez responsables
+    </strong>
+  </p>
+  <b>Page sous licence :
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.0/fr/">
+      <img alt="Creative Commons License" src="/images/logo-licence-cc-by-sa.png">
+    </a>
+  </b>
+<!--============================================= FIN ==============================================-->
+</div>
+		<script src="/vues/_bandeau.js?1744567957"></script>
+		<script src="/myol/dist/myol.js?1749138194"></script>
+		<script src="/vues/_cartes.js?1748203896"></script>
+	<script>
+	//<![CDATA[
+		var map = mapPoint({
+  target: 'carte-point',
+  host: '/',
+  mapKeys: {"ign":"ign_scan_ws","thunderforest":"23e2a2c890144e418ea89a5cc0555afe","mapbox":"pk.eyJ1IjoiZG9taW5pcXVlOTIiLCJhIjoiY2xtOWprMmZmMGcwejNlbzVvOTl3dmt2eSJ9.B9IsLuXTDBarbCY4_YTIrQ","ipinfo":"11746885f89109"},
+});
+
+myol.trace(map);	//]]>
+	</script>
+	</body>
+</html>

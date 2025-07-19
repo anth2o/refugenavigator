@@ -3,9 +3,7 @@ package tests
 import (
 	"os"
 	"testing"
-	"time"
 
-	"bou.ke/monkey"
 	"github.com/anth2o/refugenavigator/internal/scrapper"
 )
 
@@ -13,25 +11,20 @@ func checkExport(featureCollection *scrapper.FeatureCollection, t *testing.T, ex
 	var f *os.File
 	var err error
 	expectedFile = "../data/" + expectedFile
+
+	exportedGPX, err := scrapper.ExportFeatureCollection(featureCollection)
+	checkError(err)
+	exportedGPXStr := string(exportedGPX)
 	update := false
 	if update {
 		f, err = os.Create(expectedFile)
 		t.Errorf("Don't let update to true, and check the differences to %s before committing", expectedFile)
-	} else {
-		f, err = os.CreateTemp("", "sample")
+		f.WriteString(exportedGPXStr)
+		f.Close()
+		if err != nil {
+			panic(err)
+		}
 	}
-	defer f.Close()
-	if err != nil {
-		panic(err)
-	}
-	guard := monkey.Patch(time.Now, func() time.Time {
-		return time.Date(2025, 6, 29, 12, 13, 24, 0, time.UTC)
-	})
-
-	defer guard.Unpatch() // Make sure to unpatch after the test
-	exportedGPX, err := scrapper.ExportFeatureCollection(featureCollection)
-	checkError(err)
-	exportedGPXStr := string(exportedGPX)
 
 	expectedExportedGPX, err := os.ReadFile(expectedFile)
 	checkError(err)

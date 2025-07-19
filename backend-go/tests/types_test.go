@@ -19,7 +19,7 @@ func TestString(t *testing.T) {
 		t.Errorf("Point.String() = %s, want %s", northEastString, expectedNorthEastString)
 	}
 	bboxString := bbox.String()
-	expectedBboxString := getBoundingBoxStringTest()
+	expectedBboxString := "bbox=" + getBoundingBoxStringTest()
 	if bboxString != expectedBboxString {
 		t.Errorf("BoundingBox.String() = %s, want %s", bboxString, expectedBboxString)
 	}

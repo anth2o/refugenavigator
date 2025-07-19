@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Fontaine du Play 1670 m (point d'eau)</title>
+    <link rel="icon" type="image/png" href="/images/icones/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/images/icones/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/vues/style.css.php?1749229210"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/myol/dist/myol-min.css?1749138194"
+    />
+  </head>
+
+  <body>
+    <div class="bandeau-haut noprint">
+      <a class="logo-haut" href="/" title="Revenir à l'accueil"> </a>
+
+      <form class="recherche-haut" method="get" action="/point_recherche">
+        <input
+          type="text"
+          name="nom"
+          class="input-text"
+          placeholder="Recherche de point"
+        />
+        <input type="hidden" name="limite" value="40" />
+        <input type="hidden" name="avec_point_osm" value="1" />
+        <button type="submit" title="Lancer la recherche" style="border: none">
+          🔍
+        </button>
+        <a href="/point_formulaire_recherche" title="Recherche avancée"> 🔭</a>
+      </form>
+
+      <div class="menu-haut">
+        <div class="menu-connexion menu-bouton">
+          <span>👤</span><span class="menu-large">Connexion</span>
+          <ul>
+            <form method="post" action="/forum/ucp.php?mode=login">
+              <li>
+                <input
+                  type="text"
+                  name="username"
+                  size="15"
+                  placeholder="Nom d’utilisateur"
+                  autocomplete="username"
+                />
+              </li>
+              <li>
+                <input
+                  type="password"
+                  name="password"
+                  size="15"
+                  placeholder="Mot de passe"
+                  autocomplete="current-password"
+                />
+              </li>
+              <li>
+                <input type="hidden" name="autologin" value="checked" />
+                <input type="hidden" name="creation_time" value="1752926554" />
+                <input
+                  type="hidden"
+                  name="form_token"
+                  value="51eda1a87674105cd094887b950f281951b5778d"
+                />
+                <input type="hidden" name="redirect" value="/point/1198" />
+                <input type="submit" name="login" value="Connexion" />
+              </li>
+              <li><hr /></li>
+              <li>
+                <a href="/wiki/cookies"> Utilisation des cookies </a>
+              </li>
+              <li>
+                <a href="/forum/app.php/user/forgot_password">
+                  Mot de passe oublié
+                </a>
+              </li>
+              <li>
+                <a href="/forum/ucp.php?mode=register"> Créer un compte </a>
+              </li>
+              <li>
+                <a href="/forum/ucp.php?mode=login"> Connexion avancée </a>
+              </li>
+            </form>
+          </ul>
+        </div>
+
+        <div class="menu-titre">
+          <span>Forum de </span>
+          <a href="/" title="Revenir à l'accueil"> Refuges.info </a>
+        </div>
+
+        <div class="menu-liste menu-bouton">
+          <span>☰</span>
+          <ul>
+            <li class="menu-bouton" style="order: 1">
+              <a href="/nouvelles"> <span>🔔</span><span>Nouvelles</span> </a>
+              <p>Les entrées les plus récentes</p>
+            </li>
+            <li class="menu-bouton" style="order: 2">
+              <a href="/point_ajout"> <span>📌</span><span>Ajouter</span> </a>
+              <p>Ajouter une nouvelle cabane ou refuge</p>
+            </li>
+
+            <li class="menu-bouton" style="order: 3">
+              <a href="/nav"> <span>🌍</span><span>Cartes</span> </a>
+              <p>Afficher les points sur divers fonds de cartes</p>
+            </li>
+            <li class="menu-bouton" style="order: 4">
+              <a href="/forum/"> <span>💬</span><span>Forum</span> </a>
+              <p>Forum de discussion</p>
+            </li>
+            <li class="menu-bouton" style="order: 0">
+              <span class="menu-large">☰</span
+              ><span class="menu-large"> Refuges.info</span>
+              <ul>
+                <li>
+                  <a href="/" title="Retour à l'entrée du site"> Accueil </a>
+                </li>
+                <li>
+                  <a href="/wiki/"> Qui sommes nous ? </a>
+                </li>
+                <li>
+                  <a
+                    href="/point_formulaire_recherche"
+                    title="Formulaire de recherche multicritères de points dans la base de données de refuges.info"
+                  >
+                    Recherche de points
+                  </a>
+                </li>
+                <li>
+                  <a href="/wiki/cabane_principe_bonne_conduite">
+                    Consignes en cabane
+                  </a>
+                </li>
+                <li>
+                  <a href="/wiki/liens"> Liens </a>
+                </li>
+                <li>
+                  <a href="/gps"> Appli GPS </a>
+                </li>
+                <hr />
+                <li>
+                  <a href="/wiki/contact"> Support site </a>
+                </li>
+                <li>
+                  <a
+                    href="/formulaire_exportations"
+                    title="Exportation de la base refuges.info aux formats kmz (googlearth compressé), kml (googlearth), gml (Geography Markup Language), GPS (gpx), GPS (gpx simplifié), Garmin points d'intérêts, csv (tableurs)"
+                  >
+                    Export de points
+                  </a>
+                </li>
+                <li>
+                  <a href="/formulaire_rss_et_nouvelles?choix=flux_rss">
+                    Flux RSS
+                  </a>
+                </li>
+                <li>
+                  <a href="/api/doc/"> Doc API </a>
+                </li>
+                <hr />
+                <li>
+                  <a href="/wiki/prudence"> Règles de prudence </a>
+                </li>
+                <li>
+                  <a href="/wiki/cookies"> Cookies </a>
+                </li>
+                <li>
+                  <a href="/wiki/licence"> Licence </a>
+                </li>
+                <li>
+                  <a href="/wiki/mentions-legales"> Mentions légales </a>
+                </li>
+              </ul>
+            </li>
+            <li style="order: 5">
+              <!-- Réserve un espace avant le sous-menu connexion -->
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="contenu" id="contenu">
+      <div class="fiche_cadre">
+        <!--======================================== DESCRIPTIONS =========================================-->
+        <!--======= LIEN DE MODIFICATION (modérateurs et modérateur de fiche) =======-->
+        <!--========================================== FICHE DE ===========================================-->
+        <h1>
+          Fontaine du Play (1670m),
+          <a href="/wiki/fiche-point-d-eau">point d'eau</a>
+          <strong>(Débit intermittent)</strong>
+        </h1>
+      </div>
+      <!--============================================ CARTE ============================================-->
+      <div id="container-carte-point">
+        <div id="carte-point"></div>
+        <div class="noprint texte-tout-petit">
+          <div class="hide-touch-screen">
+            Ctrl+click: nouvel onglet ; Maj+click: nouvelle fenêtre
+          </div>
+          <a
+            href="/nav"
+            title="'Shift + Click gauche' pour ouvrir la carte dans une nouvelle fenêtre"
+            >Grande carte</a
+          >
+        </div>
+      </div>
+      <!--======================================== LOCALISATION =========================================-->
+      <p>
+        <b>Localisation montagnarde:</b>
+        Alpes
+        <sup>
+          <a href="/nav/352/zone/Alpes/">carte</a>
+        </sup>
+        , Vercors
+        <sup>
+          <a href="/nav/4/massif/Vercors/">carte</a>
+        </sup>
+        , Réserve naturelle des hauts plateaux du Vercors
+        <sup>
+          <a
+            href="/nav/6792/zone-reglementee/Reserve-naturelle-des-hauts-plateaux-du-Vercors/"
+            >carte</a
+          >
+        </sup>
+        <br />
+        <b>Localisation administrative:</b>
+        France métropolitaine
+        <sup>
+          <a href="/nav/3277/pays/France-metropolitaine/">carte</a>
+        </sup>
+        , Auvergne-Rhône-Alpes
+        <sup>
+          <a href="/nav/5736/region/Auvergne-Rhone-Alpes/">carte</a>
+        </sup>
+        , Isère
+        <sup>
+          <a href="/nav/2187/departement/Isere/">carte</a>
+        </sup>
+        <br />
+        <b>Localisation carte:</b>
+        IGN 3236OT - Villard-De-Lans/Mont Aiguille/Pnr du Vercors
+        <sup>
+          <a
+            href="/nav/4271/carte/IGN-3236OT---Villard-De-LansMont-AiguillePnr-du-Vercors/"
+            >carte</a
+          >
+        </sup>
+        <br />
+      </p>
+      <!--================================= DEMANDE DE MODIFICATION =================================-->
+      <div class="noprint bloc_liens_centre">
+        <a
+          class="liens_avec_decoration"
+          href="/point_ajout_commentaire/1198?correction=oui"
+        >
+          Demander une modification de la fiche
+        </a>
+      </div>
+      <!--================================= AUPRÈS DE QUI SE RENSEIGNER =================================-->
+      <dl class="liste-wri">
+        <!--============================================ ACCÈS ============================================-->
+        <dt style="clear: left">Accès:</dt>
+        <dd>
+          A partir de la cabane de la Jasse du Play, continuer sur le GR 91 vers
+          le Sud-Est le GR passe maintenant (08/2018) devant la source.<br />
+          <br />
+          La fontaine se trouve à gauche au bas d’un pan rocheux.
+        </dd>
+        <!--========================================== REMARQUES ==========================================-->
+        <dt>Remarques:</dt>
+        <dd>
+          Que chaque randonneur qui l&#039;a vue donne sa date de passage et
+          l&#039;état de la source, cela permet à ceux qui veulent y aller de
+          prévoir leur chance d&#039;y trouver de l&#039;eau. <br />
+          <br />
+          <span style="color: red">
+            Captage sécurisé avec grillages afin d&#039;éviter les souillures
+            par les animaux (mais la source reste accessible aux randonneurs) -
+            avril 2014</span
+          >
+        </dd>
+        <!--================================= INFORMATIONS COMPLÉMENTAIRES ================================-->
+        <!--===================================== POINTS À PROXIMITÉ ======================================-->
+        <dt>Points à proximité (distance à vol d'oiseau):</dt>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/1199/point-d-eau/deuxieme-fontaine-du-Play/"
+            >Deuxième fontaine du Play</a
+          >, point d'eau (altitude: 1670m) situé(e) à 262m
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/1986/passage-delicat/pas-de-Berrieves/"
+            >Pas de Bèrrièves</a
+          >, passage délicat (altitude: 1887m) situé(e) à 1,09km
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/1987/sommet/rocher-de-Seguret/"
+            >Rocher de Séguret</a
+          >, sommet (altitude: 2051m) situé(e) à 1,24km
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/28/cabane-non-gardee/refuge-de-la-Jasse-du-Play/"
+            >Refuge de la Jasse du Play</a
+          >, cabane non gardée (altitude: 1629m) situé(e) à 1,30km
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/2790/point-d-eau/fontaine-de-Berrieves/"
+            >Fontaine de Berrièves</a
+          >, point d'eau (altitude: 1550m) situé(e) à 2,00km
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/4066/cabane-non-gardee/cabane-pastorale-de-Gresse/"
+            >Cabane pastorale de Gresse</a
+          >, cabane non gardée (altitude: 1565m) situé(e) à 2,51km
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/1702/point-d-eau/fontaine-de-la-Chau/"
+            >Fontaine de la Chau</a
+          >, point d'eau (altitude: 1620m) situé(e) à 2,57km
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/1985/sommet/sommet-de-Pierre-Blanche/"
+            >Sommet de Pierre Blanche</a
+          >, sommet (altitude: 2108m) situé(e) à 2,86km
+        </dd>
+        <dd>
+          <a
+            href="https://www.refuges.info/point/2682/cabane-non-gardee/Nouvelle-Jasse-de-la-Chau/"
+            >Nouvelle Jasse de la Chau</a
+          >, cabane non gardée (altitude: 1600m) situé(e) à 3,21km
+        </dd>
+        <!--================================= Si message d'information à afficher =======================================-->
+        <dt>Réglementation particulière :</dt>
+        <dd>
+          Fontaine du Play est situé·e dans Réserve naturelle des hauts plateaux
+          du Vercors Sont Interdits : Les chiens (même en laisse), les feux, le
+          camping (mais le bivouac, c'est à dire montage de la tente après 17h
+          et démontage avant 9h est autorisé), la cueillette des plantes, le
+          ramassage des fossiles et le dépôt des déchets.Le décollage en
+          parapente y est interdit mais le survol par tout type d'aéronef à plus
+          de 300m est autorisé, le VTT ne sont autorisés que sur la variante
+          GTV. L'escalade n'y est pas réglementée. (Plus d'information sur
+          <a href="https://www.parc-du-vercors.fr/RNNHPV"
+            >cette réglementation</a
+          >)
+        </dd>
+        <!--==================== VIGNETTES PHOTOS (CLICABLE POUR ALLER VOIR EN GRAND) =====================-->
+        <!-- Liste des vignettes photos (clicable pour aller voir en grand) -->
+        <dt class="noprint">Photos:</dt>
+        <dd class="noprint">
+          <a href="#C50216">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/50216-reduite.jpeg?1751970979"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C49896">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/49896-reduite.jpeg?1749709188"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C47553">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/47553-reduite.jpeg?1729695153"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C46796">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/46796-reduite.jpeg?1724507452"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C45025">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/45025-reduite.jpeg?1714673905"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C43518">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/43518-reduite.jpeg?1696755249"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C42812">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/42812-reduite.jpeg?1692528043"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C42026">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/42026-reduite.jpeg?1687857028"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C39772">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/39772-reduite.jpeg?1667642846"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C39135">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/39135-reduite.jpeg?1661600147"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C37792">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/37792-reduite.jpeg?1655667586"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C35669">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/35669-reduite.jpeg?1629321465"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C35453">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/35453-reduite.jpeg?1628456687"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C35303">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/35303-reduite.jpeg?1626698156"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C32241">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/32241-reduite.jpeg?1598224052"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C31258">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/31258-reduite.jpeg?1591726066"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C30019">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/30019-reduite.jpeg?1571909521"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C29505">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/29505-reduite.jpeg?1564476031"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C29083">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/29083-reduite.jpeg?1558282998"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C27242">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/27242-reduite.jpeg?1530305053"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C27196">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/27196-reduite.jpeg?1529443306"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C25709">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/25709-reduite.jpeg?1502896516"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C25420">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/25420-reduite.jpeg?1499458692"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C25358">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/25358-reduite.jpeg?1498577981"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C25346">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/25346-reduite.jpeg?1498488509"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C23551">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/23551-reduite.jpeg?1472491919"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C23373">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/23373-reduite.jpeg?1470166059"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C22954">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/22954-reduite.jpeg?1464447643"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C18921">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/18921-reduite.jpeg?1408365118"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C18627">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/18627-reduite.jpeg?1402687212"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C18602">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/18602-reduite.jpeg?1402333916"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C15854">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/15854-reduite.jpeg?1345491456"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C13376">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/13376-reduite.jpeg?1306146457"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C12044">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/12044-reduite.jpeg?1279638664"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C11300">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/11300-reduite.jpeg?1262476758"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C10624">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/10624-reduite.jpeg?1247677959"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C7043">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/7043-reduite.jpeg?1187207940"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C6914">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/6914-reduite.jpeg?1185605416"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C4638">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/4638-reduite.jpeg?1151874688"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C4637">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/4637-reduite.jpeg?1151874642"
+              alt="photo miniature"
+            />
+          </a>
+          <a href="#C4317">
+            <img
+              height="50"
+              style="vertical-align: middle"
+              src="/photos_points/4317-reduite.jpeg?1145561714"
+              alt="photo miniature"
+            />
+          </a>
+        </dd>
+        <!--========================================= Informations technique sur la fiche =========================================-->
+        <dt>Coordonnées:</dt>
+        <dd class="noprint">Provenance: Coordonnées prises sur le terrain</dd>
+        <dd>
+          <input
+            type="hidden"
+            id="cadre-json"
+            value='{"type":"Point","coordinates":[5.51051,44.90526]}'
+          />
+          <span id="cadre-string"></span>
+          <select id="cadre-select">
+            <option value="dec" selected="selected">Degrés décimaux</option>
+            <option value="dms">Deg Min Sec</option>
+            <option class="xy" value="swiss">Suisse</option>
+            <option value="utm">UTM</option>
+          </select>
+        </dd>
+        <dd class="noprint">
+          Export:
+          <a href="/api/point?id=1198&amp;format=gpx">GPX</a>,
+          <a href="/api/point?id=1198&amp;format=gpx_garmin">Garmin</a>,
+          <a href="/api/point?id=1198&amp;format=kml">KML</a>,
+          <a href="geo:44.90526,5.51051">Géoloc</a
+          ><a href="/wiki/geo-uri"><sup>?</sup></a>
+        </dd>
+      </dl>
+      <!--============================= Infos assez internes finalement, plutôt pour modérateurs devrais-je dire ===================-->
+      <p class="noprint">
+        Fiche n°1198 sur le site depuis le 20/04/2006 , dernière modification du
+        08/07/2025. Modérateur actuel de cette fiche: Dominique
+      </p>
+      <!--============================ LIEN VERS LE FORUM D'UN POINT ===========================-->
+      <h5 class="noprint">Discussions sur fontaine du Play</h5>
+      <p class="noprint" id="forum">
+        <b>
+          Pour les discussions, les questions et les avis, on vous conseille
+          d'utiliser le
+          <a href="/forum/viewtopic.php?t=1250"
+            >le forum dédié à fontaine du Play</a
+          >. Les utilisateurs du site qui "suivent" la discussion du forum
+          seront prévenus par e-mail si vous postez votre message sur le forum.
+          Pour faire part d'une information objective à propos de fontaine du
+          Play (accès, réglementation, demande de corrections de la fiche), vous
+          pouvez ajouter une information ci-après.
+        </b>
+      </p>
+      <!--============================ POSTS LES PLUS RÉCENTS DU FORUM D'UN POINT ===========================-->
+      Derniers messages du forum :
+      <div class="point_forum couleur_fond_amplifiee noprint">
+        <a href="/forum/viewtopic.php?t=1250#p43920" title="Voir le post">
+          <b>Dimanche 16 juin 2024 à 19h52</b>
+          <blockquote cite="/forum/viewtopic.php?t=1250">
+            Très bon débit: 10 litres / minute
+          </blockquote>
+        </a>
+        <a href="/forum/viewtopic.php?t=1250#p29043" title="Voir le post">
+          <b>Jeudi 21 juin 2018 à 10h18</b>
+          <blockquote cite="/forum/viewtopic.php?t=1250">
+            Pour que l'eau soit la plus saine possible dans l'abreuvoir il
+            faudrait remettre dans le même axe le tuyau et le tronc afin que
+            l'eau y coule en permanence.
+          </blockquote>
+        </a>
+      </div>
+      <!--===================================== LIEN AJOUT COMMENTAIRE ====================================-->
+      <h5 class="noprint">Informations récentes</h5>
+      <div class="noprint bloc_liens_centre">
+        <a class="liens_avec_decoration" href="/point_ajout_commentaire/1198">
+          Ajouter une information et/ou une photo
+        </a>
+      </div>
+      <!--========================================= COMMENTAIRES =========================================-->
+      <ul class="noprint">
+        <li>
+          <a id="C50435"></a
+          ><!-- ici l'id pour l'anchor des petites vignettes du haut -->
+          <div class="bloc_commentaire">
+            <div class="commentaire_metainfo">
+              Vendredi 18 juillet 2025 à 11h43
+            </div>
+            <div class="bloc_liens_haut_droit">
+              <a
+                class="liens_avec_decoration"
+                href="/avis_internaute_commentaire/50435/"
+              >
+                Info périmée ?</a
+              >
+            </div>
+
+            <hr class="spacer" />
+
+            <blockquote>
+              <p>16/7, 5min/L, 6 bouteilles d&#039;un litre rempli</p>
+            </blockquote>
+            <hr class="spacer" />
+            <!-- pour ne pas avoir la foto qui depasse -->
+          </div>
+        </li>
+        <li>
+          <a id="C50216"></a
+          ><!-- ici l'id pour l'anchor des petites vignettes du haut -->
+          <div class="bloc_commentaire">
+            <div class="commentaire_metainfo">
+              Mardi 8 juillet 2025 à 12h36 par
+              <a href="/forum/memberlist.php?mode=viewprofile&u=9603">
+                gustin_mnc
+              </a>
+            </div>
+            <div class="bloc_liens_haut_droit">
+              <a
+                class="liens_avec_decoration"
+                href="/avis_internaute_commentaire/50216/"
+              >
+                Info périmée ?</a
+              >
+            </div>
+
+            <hr class="spacer" />
+            <div class="photos">
+              <a href="/photos_points/50216-originale.jpeg?1751970978">
+                <img
+                  src="/photos_points/50216-reduite.jpeg?1751970979"
+                  alt="Photo"
+                  style="max-width: 100%"
+                />
+              </a>
+              <div class="texte_sur_image">25/06/2025</div>
+            </div>
+
+            <blockquote>
+              <p>
+                Source plutôt faiblarde ce 25 juin, environ 0,5L/min. &nbsp;J’ai
+                pu remettre le tuyau d’aplomb avec la vasque comme demandée dans
+                le forum<br />
+                Si vous êtes de passage durant les périodes sèches, comptez de
+                l’eau assurée pendant au moins 4 jours après pluie
+              </p>
+            </blockquote>
+            <hr class="spacer" />
+            <!-- pour ne pas avoir la foto qui depasse -->
+          </div>
+        </li>
+      </ul>
+
+      <!--================== FIN DE LA PAGE DES POINTS - COMMENTAIRES DIVERS ET VARIÉS ===================-->
+      <p class="noprint">
+        <strong>
+          Avertissement : Les informations fournies sont indicatives. Elles ne
+          sauraient engager la responsabilité des gestionnaires ou des
+          rédacteurs dans l'hypothèse où les utilisateurs de ces informations
+          n'observeraient pas les règles de prudence que la montagne impose.
+          Soyez responsables
+        </strong>
+      </p>
+      <b
+        >Page sous licence :
+        <a
+          rel="license"
+          href="http://creativecommons.org/licenses/by-sa/2.0/fr/"
+        >
+          <img
+            alt="Creative Commons License"
+            src="/images/logo-licence-cc-by-sa.png"
+          />
+        </a>
+      </b>
+      <!--============================================= FIN ==============================================-->
+    </div>
+    <script src="/vues/_bandeau.js?1744567957"></script>
+    <script src="/myol/dist/myol.js?1749138194"></script>
+    <script src="/vues/_cartes.js?1748203896"></script>
+    <script>
+      //<![CDATA[
+      var map = mapPoint({
+        target: "carte-point",
+        host: "/",
+        mapKeys: {
+          ign: "ign_scan_ws",
+          thunderforest: "23e2a2c890144e418ea89a5cc0555afe",
+          mapbox:
+            "pk.eyJ1IjoiZG9taW5pcXVlOTIiLCJhIjoiY2xtOWprMmZmMGcwejNlbzVvOTl3dmt2eSJ9.B9IsLuXTDBarbCY4_YTIrQ",
+          ipinfo: "11746885f89109",
+        },
+      });
+
+      myol.trace(map); //]]>
+    </script>
+  </body>
+</html>
