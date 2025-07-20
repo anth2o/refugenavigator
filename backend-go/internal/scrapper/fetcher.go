@@ -39,8 +39,20 @@ func GetFeature(featureId int) *Feature {
 	if feature.Properties.Type.Valeur == "point d'eau" {
 		html := QueryUrl(GetBaseUrl() + "point/" + fmt.Sprint(featureId))
 		comments, err := ScrapeComments(string(html))
-		if err == nil {
-			feature.Comments = comments
+		if err != nil {
+			fmt.Println("Error scraping comments for feature", featureId, err)
+		} else {
+			feature.CommentData.Comments = comments
+			feature.CommentData.Prompt = prompt
+			summary, restored := feature.GetCommentsSummaryFromDb()
+			if restored {
+				fmt.Printf("Comments summary restored for feature %v\n", featureId)
+				feature.CommentData.Summary = summary
+			} else {
+				feature.CommentData.Summary = feature.GetCommentsSummaryFromLlm()
+				fmt.Printf("Comments summary not restored for feature %v. Summary from LLM is %v\n", featureId, feature.CommentData.Summary)
+				feature.StoreCommentsSummary()
+			}
 		}
 	}
 	return &feature

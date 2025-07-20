@@ -50,12 +50,13 @@ func ScrapeComments(html string) ([]Comment, error) {
 	return comments, nil
 }
 
-func SummarizeComments(comments []Comment) string {
+var prompt = "Je vais te donner une liste de commentaires ecrits par des utilisateurs sur un point d'eau. Je voudrais que tu me donnes un resume des commentaires en francais en me donnant le debit moyen attendu en fonction de la saison. Voici la liste des commentaires : "
+
+func (feature Feature) GetCommentsSummaryFromLlm() string {
 	client := mistral.NewMistralClientDefault(os.Getenv("MISTRAL_API_KEY"))
-	prompt := "Je vais te donner une liste de commentaires ecrits par des utilisateurs sur un point d'eau. Je voudrais que tu me donnes un resume des commentaires en francais en me donnant le debit moyen attendu en fonction de la saison. Voici la liste des commentaires : "
 	var chatMessages []mistral.ChatMessage
 	chatMessages = append(chatMessages, mistral.ChatMessage{Content: prompt, Role: mistral.RoleUser})
-	for _, comment := range comments {
+	for _, comment := range feature.CommentData.Comments {
 		chatMessages = append(chatMessages, mistral.ChatMessage{Content: comment.Date + ": " + comment.Content, Role: mistral.RoleUser})
 	}
 	chatRes, err := client.Chat("mistral-small", chatMessages, nil)
