@@ -3,9 +3,9 @@ WORKDIR /app
 COPY backend-go/go.mod backend-go/go.sum ./
 RUN go mod download && \
     go mod verify
-COPY backend-go/main.go .
+COPY backend-go/cmd/server/ ./cmd/server/
 COPY backend-go/internal ./internal
-RUN CGO_ENABLED=0 GOOS=linux go build -o main
+RUN CGO_ENABLED=0 GOOS=linux go build ./cmd/server/main.go
 
 FROM node:22-alpine AS frontend-builder
 WORKDIR /app
