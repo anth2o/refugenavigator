@@ -24,12 +24,19 @@ func (fc FeatureCollection) ToGpx() *gpx.GPX {
 		Link:             "https://www.refuges.info",
 		LinkText:         "refuges.info",
 		LinkType:         "website",
-		Waypoints:        make([]gpx.GPXPoint, 0),
+		Waypoints:        make([]gpx.GPXPoint, len(fc.Features)),
 	}
 
-	for _, feature := range fc.Features {
-		wp := feature.ToGpx()
-		exportedGpx.Waypoints = append(exportedGpx.Waypoints, *wp)
+	syncChannel := make(chan int, len(fc.Features))
+	for i, feature := range fc.Features {
+		go func(f Feature, index int) {
+			wp := f.ToGpx()
+			exportedGpx.Waypoints[index] = *wp
+			syncChannel <- 1
+		}(feature, i)
+	}
+	for i := 0; i < len(fc.Features); i++ {
+		<-syncChannel
 	}
 	return exportedGpx
 }

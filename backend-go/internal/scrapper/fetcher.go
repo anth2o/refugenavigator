@@ -47,7 +47,14 @@ func GetFeature(featureId int) *Feature {
 }
 
 func EnrichFeatureCollection(featureCollection *FeatureCollection) {
+	syncChannel := make(chan int, len(featureCollection.Features))
 	for i := range featureCollection.Features {
-		featureCollection.Features[i] = *GetFeature(featureCollection.Features[i].Id)
+		go func(i int) {
+			featureCollection.Features[i] = *GetFeature(featureCollection.Features[i].Id)
+			syncChannel <- 1
+		}(i)
+	}
+	for i := 0; i < len(featureCollection.Features); i++ {
+		<-syncChannel
 	}
 }
