@@ -3,3 +3,4 @@ coverage.*
 data/.*
 output.gpx
 .git-tag
+*.prof

@@ -9,10 +9,10 @@ type FeatureCollection struct {
 }
 
 type Feature struct {
-	Id         int        `json:"id"`
-	Properties Properties `json:"properties"`
-	Geometry   Geometry   `json:"geometry"`
-	Comments   []Comment  `json:"comments"`
+	Id          int         `json:"id"`
+	Properties  Properties  `json:"properties"`
+	Geometry    Geometry    `json:"geometry"`
+	CommentData CommentData `json:"comment_data"`
 }
 
 type Properties struct {
@@ -62,6 +62,12 @@ func (p Point) Latitude() float64 {
 }
 func (p Point) String() string {
 	return fmt.Sprintf("%.5f,%.5f", p.Longitude(), p.Latitude())
+}
+
+type CommentData struct {
+	Prompt   string    `json:"prompt"`
+	Comments []Comment `json:"comments"`
+	Summary  string    `json:"summary"`
 }
 
 type Comment struct {

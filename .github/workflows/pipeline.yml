@@ -29,7 +29,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: 🔨 build main
         working-directory: backend-go
-        run: go build .
+        run: go build cmd/server/main.go
       - name: 💅 check gofmt
         working-directory: backend-go
         run: test -z "$(gofmt -l .)"

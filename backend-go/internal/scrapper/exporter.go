@@ -24,12 +24,19 @@ func (fc FeatureCollection) ToGpx() *gpx.GPX {
 		Link:             "https://www.refuges.info",
 		LinkText:         "refuges.info",
 		LinkType:         "website",
-		Waypoints:        make([]gpx.GPXPoint, 0),
+		Waypoints:        make([]gpx.GPXPoint, len(fc.Features)),
 	}
 
-	for _, feature := range fc.Features {
-		wp := feature.ToGpx()
-		exportedGpx.Waypoints = append(exportedGpx.Waypoints, *wp)
+	syncChannel := make(chan int, len(fc.Features))
+	for i, feature := range fc.Features {
+		go func(f Feature, index int) {
+			wp := f.ToGpx()
+			exportedGpx.Waypoints[index] = *wp
+			syncChannel <- 1
+		}(feature, i)
+	}
+	for i := 0; i < len(fc.Features); i++ {
+		<-syncChannel
 	}
 	return exportedGpx
 }
@@ -38,36 +45,33 @@ func formatStringForGpx(s string) string {
 	return s
 }
 
-func (f Feature) ToGpx() *gpx.GPXPoint {
+func (feature Feature) ToGpx() *gpx.GPXPoint {
 	point := gpx.Point{
-		Latitude:  f.Geometry.Coordinates.Latitude(),
-		Longitude: f.Geometry.Coordinates.Longitude(),
+		Latitude:  feature.Geometry.Coordinates.Latitude(),
+		Longitude: feature.Geometry.Coordinates.Longitude(),
 	}
 	description := ""
-	if f.Properties.Description.Valeur != "" {
-		description += fmt.Sprintf("Description: \n\n%s", f.Properties.Description.Valeur)
+	if feature.Properties.Description.Valeur != "" {
+		description += fmt.Sprintf("Description: \n\n%s", feature.Properties.Description.Valeur)
 	}
-	if f.Properties.Remarque.Valeur != "" {
+	if feature.Properties.Remarque.Valeur != "" {
 		description += "\n\n*****\n\n"
-		description += fmt.Sprintf("Remarque: \n\n%s", f.Properties.Remarque.Valeur)
+		description += fmt.Sprintf("Remarque: \n\n%s", feature.Properties.Remarque.Valeur)
 	}
-	if f.Properties.Acces.Valeur != "" {
+	if feature.Properties.Acces.Valeur != "" {
 		description += "\n\n*****\n\n"
-		description += fmt.Sprintf("Accès: \n\n%s", f.Properties.Acces.Valeur)
+		description += fmt.Sprintf("Accès: \n\n%s", feature.Properties.Acces.Valeur)
 	}
-	if f.Comments != nil {
-		comments := SummarizeComments(f.Comments)
-		if comments != "" {
-			description += "\n\n*****\n\n"
-			description += "Voici un résumé des commentaires:\n\n"
-			description += comments
-		}
+	if feature.CommentData.Summary != "" {
+		description += "\n\n*****\n\n"
+		description += "Voici un résumé des commentaires:\n\n"
+		description += feature.CommentData.Summary
 	}
 	return &gpx.GPXPoint{
 		Point:       point,
-		Name:        f.Properties.Name,
+		Name:        feature.Properties.Name,
 		Description: gpx.CDATA(formatStringForGpx(description)),
-		Comment:     f.Properties.Link,
+		Comment:     feature.Properties.Link,
 	}
 }
 
