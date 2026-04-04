@@ -32,9 +32,10 @@ export const Map = ({ className }: { className?: string }) => {
   useEffect(() => {
     if (mapRef.current) return;
     const map = L.map("map").setView(initialCenter, initialZoom);
-    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
       attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+      referrerPolicy: "strict-origin-when-cross-origin", // https://wiki.openstreetmap.org/wiki/Referer
     }).addTo(map);
     mapRef.current = map;
 
