@@ -64,7 +64,6 @@ jobs:
       REGION: europe-west1
       COMMIT_IMAGE_NAME: eu.gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.event.pull_request.head.sha || github.sha }}
       TAG_IMAGE_NAME: eu.gcr.io/${{ secrets.GCP_PROJECT_ID }}/refugenavigator:${{ github.ref_name }}
-      SERVICE_NAME: refugenavigator
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout
@@ -111,14 +110,13 @@ jobs:
           docker tag ${{ env.COMMIT_IMAGE_NAME }} ${{ env.TAG_IMAGE_NAME }}
           docker push ${{ env.TAG_IMAGE_NAME }}
       - name: ✨ deploy to Cloud Run
-        if: github.event_name == 'release'
         run: |
-          gcloud run deploy ${{ env.SERVICE_NAME }} \
-              --image ${{ env.TAG_IMAGE_NAME }} \
-              --region ${{ env.REGION }}
-      - name: ✨ deploy to dev Cloud Run
-        if: github.event_name != 'release'
-        run: |
-          gcloud run deploy dev${{ env.SERVICE_NAME }} \
-              --image ${{ env.COMMIT_IMAGE_NAME }} \
-              --region ${{ env.REGION }}
+          SERVICE_NAME="${{ github.event_name == 'release' && 'refugenavigator' || 'devrefugenavigator' }}"
+          IMAGE_NAME="${{ github.event_name == 'release' && env.TAG_IMAGE_NAME || env.COMMIT_IMAGE_NAME }}"
+          echo "Deploying ${IMAGE_NAME} to Cloud Run..."
+          gcloud run deploy $SERVICE_NAME \
+            --image $IMAGE_NAME \
+            --region ${{ env.REGION }} \
+            --allow-unauthenticated \
+            --clear-vpc-connector \
+            --clear-network
