@@ -40,33 +40,13 @@ func formatStringForGpx(s string) string {
 
 func (f Feature) ToGpx() *gpx.GPXPoint {
 	point := gpx.Point{
-		Latitude:  f.Geometry.Coordinates.Latitude(),
-		Longitude: f.Geometry.Coordinates.Longitude(),
-	}
-	description := ""
-	if f.Properties.Description.Valeur != "" {
-		description += fmt.Sprintf("Description: \n\n%s", f.Properties.Description.Valeur)
-	}
-	if f.Properties.Remarque.Valeur != "" {
-		description += "\n\n*****\n\n"
-		description += fmt.Sprintf("Remarque: \n\n%s", f.Properties.Remarque.Valeur)
-	}
-	if f.Properties.Acces.Valeur != "" {
-		description += "\n\n*****\n\n"
-		description += fmt.Sprintf("Accès: \n\n%s", f.Properties.Acces.Valeur)
-	}
-	if f.Comments != nil {
-		comments := SummarizeComments(f.Comments)
-		if comments != "" {
-			description += "\n\n*****\n\n"
-			description += "Voici un résumé des commentaires:\n\n"
-			description += comments
-		}
+		Latitude:  f.Geometry.Coordinates.latitude(),
+		Longitude: f.Geometry.Coordinates.longitude(),
 	}
 	return &gpx.GPXPoint{
 		Point:       point,
 		Name:        f.Properties.Name,
-		Description: gpx.CDATA(formatStringForGpx(description)),
+		Description: gpx.CDATA(formatStringForGpx(f.Properties.Description.Value)),
 		Comment:     f.Properties.Link,
 	}
 }
