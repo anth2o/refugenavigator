@@ -9,27 +9,21 @@ export const Footer = () => {
     queryFn: getGitTag,
   });
   return (
-    <footer className="text-center text-gray-500 pb-4 px-20">
-      <Stack gap={1}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          gap={2}
-        >
+    <footer className="text-center text-gray-500 pt-3 pb-1 px-1 text-xs flex-wrap">
+      <Stack gap={0.5}>
+        <p>
+          {" "}
           © {new Date().getFullYear()} Refuge Navigator
           {gitTag ? ` (${gitTag})` : ""}
-          <Link
-            href="https://github.com/anth2o/refugenavigator"
-            color="inherit"
-          >
-            <GitHubIcon />
-          </Link>
-        </Stack>
-        <p className="text-sm">
+        </p>
+
+        <Link href="https://github.com/anth2o/refugenavigator" color="inherit">
+          <GitHubIcon />
+        </Link>
+        <p className="text-[10px] md:text-xs wrap-break-word">
           The data provided by Refuge Navigator comes from{" "}
           <Link href="https://refuges.info">refuges.info</Link>, is attributed
-          to "©Les contributeurs de Refuges.info" and licensed under the{" "}
+          to "Les contributeurs de Refuges.info" and licensed under the{" "}
           <Link href="https://creativecommons.org/licenses/by-sa/2.0/">
             CC BY-SA 2.0
           </Link>

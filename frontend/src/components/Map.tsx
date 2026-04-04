@@ -1,12 +1,8 @@
 import { downloadGpx } from "../api";
 import type { BoundingBox } from "../types/coordinates";
+import { DownloadSuccessDialog } from "./DownloadSuccessDialog";
 import "./Map.css";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
-import DownloadIcon from "@mui/icons-material/Download";
-import DrawIcon from "@mui/icons-material/Draw";
-import { Alert } from "@mui/material";
-import Button from "@mui/material/Button";
+import { MapControls } from "./MapControls";
 import Stack from "@mui/material/Stack";
 import L, { type LeafletEvent } from "leaflet";
 import { latLng, Polyline } from "leaflet";
@@ -24,7 +20,7 @@ export const Map = ({ className }: { className?: string }) => {
   const [rectangle, setRectangle] = useState<Polyline | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [waitingForGpx, setWaitingForGpx] = useState(false);
-  const [gpxDownloaded, setGpxDownloaded] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const mapRef = useRef<L.DrawMap | null>(null);
   const drawnItemsRef = useRef<L.FeatureGroup | null>(null);
   const drawControlRef = useRef<L.Control.Draw | null>(null);
@@ -62,94 +58,61 @@ export const Map = ({ className }: { className?: string }) => {
     });
     map.addControl(drawControl);
     drawControlRef.current = drawControl;
-    map.on("draw:created", onCreateDrawing);
+    map.on("draw:created", (e: LeafletEvent) => {
+      drawnItemsRef.current!.addLayer(e.layer);
+      setRectangle(e.layer);
+      setIsDrawing(false);
+    });
     return () => {
       map.removeControl(drawControl);
     };
   }, []);
-
-  function clearDrawing() {
-    setRectangle(null);
-    drawnItemsRef.current!.clearLayers();
-    setIsDrawing(false);
-    setGpxDownloaded(false);
-  }
-
-  function onStartDrawing() {
-    clearDrawing();
-    setIsDrawing(true);
-    const drawHandler = new L.Draw.Rectangle(mapRef.current!);
-    drawHandler.enable();
-  }
-
-  function onCreateDrawing(e: LeafletEvent) {
-    drawnItemsRef.current!.addLayer(e.layer);
-    setRectangle(e.layer);
-    setIsDrawing(false);
-  }
-
-  async function onDownloadGpx() {
-    if (!rectangle) return;
-    setWaitingForGpx(true);
-    const bounds = rectangle.getBounds();
-    const boundingBox: BoundingBox = {
-      northEast: bounds.getNorthEast(),
-      southWest: bounds.getSouthWest(),
-    };
-    await downloadGpx(boundingBox);
-    setWaitingForGpx(false);
-    setGpxDownloaded(true);
-  }
 
   return (
     <>
       <Stack
         alignItems="center"
         justifyContent="center"
-        gap={2}
-        className={className}
+        className={`${className} h-full flex flex-col gap-2 md:gap-6 pt-0 md:pt-12`}
       >
         {/* https://leafletjs.com/examples/quick-start/ */}
-        <div id="map"></div>
-        <Stack direction="row" gap={2}>
-          <Button
-            onClick={clearDrawing}
-            variant="contained"
-            disabled={!rectangle}
-            color="error"
-            startIcon={<ClearIcon />}
-          >
-            Clear
-          </Button>
-          <Button
-            onClick={onStartDrawing}
-            variant="contained"
-            disabled={isDrawing}
-            color="success"
-            startIcon={<DrawIcon />}
-          >
-            Draw
-          </Button>
-          <Button
-            onClick={onDownloadGpx}
-            disabled={!rectangle}
-            loading={waitingForGpx}
-            startIcon={<DownloadIcon />}
-            variant="contained"
-          >
-            Download
-          </Button>
-        </Stack>
-        <Alert
-          variant="filled"
-          icon={<CheckIcon fontSize="inherit" />}
-          severity="success"
-          className={gpxDownloaded ? "visible" : "invisible"}
-        >
-          Your GPX was successfully downloaded. You can now go to your downloads
-          and open it with your favorite GPX viewer.
-        </Alert>
+        <div
+          id="map"
+          className="flex-1 w-full min-h-[300px] mx-auto max-w-[1200px] pt-6 pb-6"
+        ></div>
+        <MapControls
+          isDrawing={isDrawing}
+          isReadyForDownload={!!rectangle}
+          waitingForGpx={waitingForGpx}
+          onToggleDrawing={() => {
+            drawnItemsRef.current!.clearLayers();
+            if (rectangle) {
+              setIsDrawing(false);
+            } else {
+              setIsDrawing(true);
+              const drawHandler = new L.Draw.Rectangle(mapRef.current!);
+              drawHandler.enable();
+            }
+            setRectangle(null);
+          }}
+          onDownloadGpx={async () => {
+            if (!rectangle) return;
+            setWaitingForGpx(true);
+            const bounds = rectangle.getBounds();
+            const boundingBox: BoundingBox = {
+              northEast: bounds.getNorthEast(),
+              southWest: bounds.getSouthWest(),
+            };
+            await downloadGpx(boundingBox);
+            setWaitingForGpx(false);
+            setDialogOpen(true);
+          }}
+        />
       </Stack>
+      <DownloadSuccessDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+      />
     </>
   );
 };

@@ -7,8 +7,8 @@ function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack className="h-screen">
-        <Map className="h-full" />
+      <Stack className="h-dvh flex-1">
+        <Map className="flex-1" />
         <Footer />
       </Stack>
     </QueryClientProvider>
