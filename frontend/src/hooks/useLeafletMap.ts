@@ -13,7 +13,7 @@ const initialZoom = 10;
 
 export const useLeafletMap = () => {
   const [rectangle, setRectangle] = useState<Polyline | null>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
+  const [drawHandler, setDrawHandler] = useState<L.Draw.Rectangle | null>(null)
   const mapRef = useRef<L.DrawMap | null>(null);
   const drawnItemsRef = useRef<L.FeatureGroup | null>(null);
   const drawControlRef = useRef<L.Control.Draw | null>(null);
@@ -54,7 +54,7 @@ export const useLeafletMap = () => {
     map.on("draw:created", (e: LeafletEvent) => {
       drawnItemsRef.current!.addLayer(e.layer);
       setRectangle(e.layer);
-      setIsDrawing(false);
+      setDrawHandler(null);
     });
     return () => {
       map.removeControl(drawControl);
@@ -63,15 +63,17 @@ export const useLeafletMap = () => {
 
   const toggleDrawing = () => {
     drawnItemsRef.current!.clearLayers();
-    if (rectangle) {
-      setIsDrawing(false);
-    } else {
-      setIsDrawing(true);
+    if (drawHandler) {
+      drawHandler.disable()
+      setDrawHandler(null);
+    } else if (!rectangle) {
       const drawHandler = new L.Draw.Rectangle(mapRef.current!);
+      setDrawHandler(drawHandler)
       drawHandler.enable();
     }
     setRectangle(null);
   };
+  const isDrawing = !!drawHandler
 
   return {
     rectangle,

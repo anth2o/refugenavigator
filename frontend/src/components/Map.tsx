@@ -25,7 +25,7 @@ export const Map = ({ className }: { className?: string }) => {
         ></div>
         <MapControls
           isDrawing={isDrawing}
-          isReadyForDownload={!!rectangle}
+          isDrawn={!!rectangle}
           waitingForGpx={waitingForGpx}
           onToggleDrawing={toggleDrawing}
           onDownloadGpx={async () => {

@@ -1,12 +1,12 @@
 import ClearIcon from "@mui/icons-material/Clear";
 import DownloadIcon from "@mui/icons-material/Download";
 import DrawIcon from "@mui/icons-material/Draw";
-import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 interface MapControlsProps {
   isDrawing: boolean;
-  isReadyForDownload: boolean;
+  isDrawn: boolean;
   waitingForGpx: boolean;
   onToggleDrawing: () => void;
   onDownloadGpx: () => void;
@@ -14,30 +14,33 @@ interface MapControlsProps {
 
 export const MapControls = ({
   isDrawing,
-  isReadyForDownload,
+  isDrawn,
   waitingForGpx,
   onToggleDrawing,
   onDownloadGpx,
 }: MapControlsProps) => {
   return (
     <Stack direction="row" gap={2}>
-      <IconButton
+      <Button
         onClick={onToggleDrawing}
-        disabled={waitingForGpx || isDrawing}
-        color={isReadyForDownload ? "error" : "success"}
+        color={isDrawn || isDrawing ? "error" : "success"}
         size="large"
+        endIcon={isDrawn || isDrawing ? <ClearIcon /> : <DrawIcon />}
+        variant="contained"
       >
-        {isReadyForDownload ? <ClearIcon /> : <DrawIcon />}
-      </IconButton>
-      <IconButton
+        {isDrawn ? "Clear" : (isDrawing ? "Cancel" : "Draw")}
+      </Button>
+      <Button
         onClick={onDownloadGpx}
-        disabled={!isReadyForDownload}
+        disabled={!isDrawn}
         loading={waitingForGpx}
         color="primary"
         size="large"
+        startIcon={<DownloadIcon />}
+        variant="contained"
       >
-        <DownloadIcon />
-      </IconButton>
+        Download
+      </Button>
     </Stack>
   );
 };
