@@ -1,18 +1,39 @@
 import { downloadGpx, getPoints } from "../api";
 import { useLeafletMap } from "../hooks/useLeafletMap";
+import type { FeatureCollection } from "../types/points";
 import { rectangleToBoundingBox } from "../utils";
-import { DownloadSuccessDialog } from "./DownloadSuccessDialog";
+import { DownloadSuccessDialog, ErrorDialog } from "./Dialog";
 import { MapControls } from "./MapControls";
 import Stack from "@mui/material/Stack";
+import { AxiosError } from "axios";
 import { LatLng, Marker, Polyline } from "leaflet";
 import { useState } from "react";
 
 export const Map = ({ className }: { className?: string }) => {
   const [waitingForGpx, setWaitingForGpx] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const { rectangle, isDrawing, toggleDrawing } = useLeafletMap(
+  const [errorDisplay, setErrorDisplay] = useState<string | null>(null);
+  const { rectangle, isDrawing, clearDrawing, toggleDrawing } = useLeafletMap(
     async (rectangle: Polyline) => {
-      const points = await getPoints(rectangleToBoundingBox(rectangle));
+      let points: FeatureCollection | null = null;
+      try {
+        points = await getPoints(rectangleToBoundingBox(rectangle));
+      } catch (error: unknown) {
+        let errorMessage: string;
+        if (typeof error === "string") {
+          errorMessage = error;
+        } else if (error instanceof AxiosError) {
+          errorMessage = error.response?.data.errors;
+        } else if (error instanceof Error) {
+          errorMessage = error.message;
+        } else {
+          console.error(error);
+          errorMessage = "Unknown error: look at console for debugging";
+        }
+        clearDrawing();
+        setErrorDisplay(errorMessage);
+        return null;
+      }
       if (!points || !points.features) return null;
       return points.features.map((feature) => {
         const latLng = new LatLng(
@@ -53,6 +74,11 @@ export const Map = ({ className }: { className?: string }) => {
       <DownloadSuccessDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
+      />
+      <ErrorDialog
+        open={!!errorDisplay}
+        onClose={() => setErrorDisplay(null)}
+        message={errorDisplay}
       />
     </>
   );

@@ -72,44 +72,56 @@ func getFeatureCollection(c *gin.Context) *scrapper.FeatureCollection {
 		SouthWest: swPoint,
 		NorthEast: nePoint,
 	}
-	fmt.Printf("bbox: %s\n", bbox)
+
+	if bbox.Area() >= 1 { // this value was chosen so that the response time from refuges.info API is almost instantaneous
+		c.Error(errors.New("Area is too large: try selecting a smaller one."))
+		return nil
+	}
 	return scrapper.GetFeatureCollection(bbox, nil)
 
 }
 
-func getPoints(c *gin.Context) {
-	featureCollection := getFeatureCollection(c)
-	bytes, err := json.Marshal(featureCollection)
-	if err != nil {
-		c.Error(err)
-		return
-	}
-	c.Header("Content-Type", "application/json")
-	c.Data(200, "application/json", bytes)
-}
-
-func getGPX(c *gin.Context) {
-
+func returnGinErrors(c *gin.Context) {
 	if c.Errors != nil {
 		var errors []string
 		for _, err := range c.Errors {
 			errors = append(errors, err.Error())
 		}
 		c.JSON(http.StatusBadRequest, gin.H{"errors": errors})
-		return
 	}
+}
+
+func getPoints(c *gin.Context) {
 	featureCollection := getFeatureCollection(c)
-	scrapper.EnrichFeatureCollection(featureCollection, nil)
-
-	gpxBytes, err := scrapper.ExportFeatureCollection(featureCollection)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
+	if featureCollection != nil {
+		bytes, err := json.Marshal(featureCollection)
+		if err == nil {
+			c.Header("Content-Type", "application/json")
+			c.Data(200, "application/json", bytes)
+			return
+		} else {
+			c.Error(err)
+		}
 	}
+	returnGinErrors(c)
+}
 
-	c.Header("Content-Type", "application/gpx+xml")
-	c.Header("Content-Disposition", "attachment; filename=route.gpx")
-	c.Data(200, "application/gpx+xml", gpxBytes)
+func getGPX(c *gin.Context) {
+	featureCollection := getFeatureCollection(c)
+	if featureCollection != nil {
+		scrapper.EnrichFeatureCollection(featureCollection, nil)
+		gpxBytes, err := scrapper.ExportFeatureCollection(featureCollection)
+		if err == nil {
+
+			c.Header("Content-Type", "application/gpx+xml")
+			c.Header("Content-Disposition", "attachment; filename=route.gpx")
+			c.Data(200, "application/gpx+xml", gpxBytes)
+		} else {
+			c.Error(err)
+		}
+
+	}
+	returnGinErrors(c)
 }
 
 func getGitTag(c *gin.Context) {

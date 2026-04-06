@@ -18,6 +18,10 @@ func getBoundingBoxStringTest() string {
 	return "bbox=5.49826,44.89830,5.52315,44.91590"
 }
 
+func getBoundingBoxAreaTest() float64 {
+	return (44.9159 - 44.8983) * (5.52315 - 5.49826)
+}
+
 func getFeatureCollectionTest() *scrapper.FeatureCollection {
 	var features []scrapper.Feature = []scrapper.Feature{}
 	features = append(features, scrapper.Feature{

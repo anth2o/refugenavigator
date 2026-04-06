@@ -36,14 +36,14 @@ type Geometry struct {
 
 type Point [2]float64
 
-func (p Point) longitude() float64 {
+func (p Point) Longitude() float64 {
 	return p[0]
 }
-func (p Point) latitude() float64 {
+func (p Point) Latitude() float64 {
 	return p[1]
 }
 func (p Point) String() string {
-	return fmt.Sprintf("%.5f,%.5f", p.longitude(), p.latitude())
+	return fmt.Sprintf("%.5f,%.5f", p.Longitude(), p.Latitude())
 }
 
 type BoundingBox struct {
@@ -52,4 +52,9 @@ type BoundingBox struct {
 
 func (b BoundingBox) String() string {
 	return fmt.Sprintf("bbox=%v,%v", b.SouthWest, b.NorthEast)
+}
+
+func (b BoundingBox) Area() float64 {
+	area := (b.NorthEast.Latitude() - b.SouthWest.Latitude()) * (b.NorthEast.Longitude() - b.SouthWest.Longitude())
+	return max(area, -area)
 }

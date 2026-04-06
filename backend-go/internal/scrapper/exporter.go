@@ -40,8 +40,8 @@ func formatStringForGpx(s string) string {
 
 func (f Feature) ToGpx() *gpx.GPXPoint {
 	point := gpx.Point{
-		Latitude:  f.Geometry.Coordinates.latitude(),
-		Longitude: f.Geometry.Coordinates.longitude(),
+		Latitude:  f.Geometry.Coordinates.Latitude(),
+		Longitude: f.Geometry.Coordinates.Longitude(),
 	}
 	return &gpx.GPXPoint{
 		Point:       point,

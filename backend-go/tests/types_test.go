@@ -2,6 +2,8 @@ package tests
 
 import (
 	"testing"
+
+	"github.com/anth2o/refugenavigator/internal/scrapper"
 )
 
 func TestString(t *testing.T) {
@@ -22,5 +24,34 @@ func TestString(t *testing.T) {
 	expectedBboxString := getBoundingBoxStringTest()
 	if bboxString != expectedBboxString {
 		t.Errorf("BoundingBox.String() = %s, want %s", bboxString, expectedBboxString)
+	}
+}
+
+func TestArea(t *testing.T) {
+	bbox := getBoundingBoxTest()
+	area := bbox.Area()
+	expectedArea := getBoundingBoxAreaTest()
+	if (area-expectedArea)*(area-expectedArea) >= 0.000000000001 {
+		t.Errorf("BoundingBox.Area() = %f, want %f", area, expectedArea)
+	}
+
+	reversedBbox := scrapper.BoundingBox{
+		NorthEast: scrapper.Point{bbox.SouthWest.Longitude(), bbox.NorthEast.Latitude()},
+		SouthWest: scrapper.Point{bbox.NorthEast.Longitude(), bbox.SouthWest.Latitude()},
+	}
+	area = reversedBbox.Area()
+	expectedArea = getBoundingBoxAreaTest()
+	if (area-expectedArea)*(area-expectedArea) >= 0.000000000001 {
+		t.Errorf("BoundingBox.Area() = %f, want %f", area, expectedArea)
+	}
+
+	emptyBox := scrapper.BoundingBox{
+		NorthEast: scrapper.Point{bbox.SouthWest.Longitude(), bbox.NorthEast.Latitude()},
+		SouthWest: scrapper.Point{bbox.SouthWest.Longitude(), bbox.SouthWest.Latitude()},
+	}
+	area = emptyBox.Area()
+	expectedArea = 0
+	if area != expectedArea {
+		t.Errorf("BoundingBox.Area() = %f, want %f", area, expectedArea)
 	}
 }

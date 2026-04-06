@@ -80,17 +80,13 @@ export const useLeafletMap = (
     return () => {
       map.removeControl(drawControl);
     };
-  }, []);
+  }, [rectangleToMarkers]);
 
-  const toggleDrawing = () => {
+  const clearDrawing = () => {
     drawnItemsRef.current!.clearLayers();
     if (drawHandler) {
       drawHandler.disable();
       setDrawHandler(null);
-    } else if (!rectangle) {
-      const drawHandler = new L.Draw.Rectangle(mapRef.current!);
-      setDrawHandler(drawHandler);
-      drawHandler.enable();
     }
     if (markers) {
       markers.forEach((marker) => marker.remove());
@@ -99,11 +95,21 @@ export const useLeafletMap = (
     setRectangle(null);
   };
 
+  const toggleDrawing = () => {
+    clearDrawing();
+    if (!rectangle) {
+      const drawHandler = new L.Draw.Rectangle(mapRef.current!);
+      setDrawHandler(drawHandler);
+      drawHandler.enable();
+    }
+  };
+
   const isDrawing = !!drawHandler;
 
   return {
     rectangle,
     isDrawing,
+    clearDrawing,
     toggleDrawing,
   };
 };
