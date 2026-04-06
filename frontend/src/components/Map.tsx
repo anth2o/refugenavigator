@@ -1,15 +1,28 @@
-import { downloadGpx } from "../api";
+import { downloadGpx, getPoints } from "../api";
 import { useLeafletMap } from "../hooks/useLeafletMap";
-import type { BoundingBox } from "../types/coordinates";
+import { rectangleToBoundingBox } from "../utils";
 import { DownloadSuccessDialog } from "./DownloadSuccessDialog";
 import { MapControls } from "./MapControls";
 import Stack from "@mui/material/Stack";
+import { LatLng, Marker, Polyline } from "leaflet";
 import { useState } from "react";
 
 export const Map = ({ className }: { className?: string }) => {
   const [waitingForGpx, setWaitingForGpx] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const { rectangle, isDrawing, toggleDrawing } = useLeafletMap();
+  const { rectangle, isDrawing, toggleDrawing } = useLeafletMap(
+    async (rectangle: Polyline) => {
+      const points = await getPoints(rectangleToBoundingBox(rectangle));
+      if (!points || !points.features) return null;
+      return points.features.map((feature) => {
+        const latLng = new LatLng(
+          feature.geometry.coordinates[1],
+          feature.geometry.coordinates[0],
+        );
+        return new Marker(latLng, { title: feature.properties.nom });
+      });
+    },
+  );
 
   return (
     <>
@@ -31,12 +44,7 @@ export const Map = ({ className }: { className?: string }) => {
           onDownloadGpx={async () => {
             if (!rectangle) return;
             setWaitingForGpx(true);
-            const bounds = rectangle.getBounds();
-            const boundingBox: BoundingBox = {
-              northEast: bounds.getNorthEast(),
-              southWest: bounds.getSouthWest(),
-            };
-            await downloadGpx(boundingBox);
+            await downloadGpx(rectangleToBoundingBox(rectangle));
             setWaitingForGpx(false);
             setDialogOpen(true);
           }}

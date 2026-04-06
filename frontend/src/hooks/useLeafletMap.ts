@@ -1,6 +1,5 @@
 import "./LeafletMap.css";
-import L, { type LeafletEvent } from "leaflet";
-import { latLng, Polyline } from "leaflet";
+import L, { latLng, Marker, Polyline, type LeafletEvent } from "leaflet";
 import "leaflet-draw";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet/dist/leaflet.css";
@@ -8,12 +7,27 @@ import { useEffect, useRef, useState } from "react";
 
 window.type = true; // https://github.com/Leaflet/Leaflet.draw/issues/1026#issuecomment-986702652
 
+const defaultIcon = L.icon({
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+L.Marker.prototype.options.icon = defaultIcon;
+
 const initialCenter = latLng(44.9, 5.5);
 const initialZoom = 10;
 
-export const useLeafletMap = () => {
+export const useLeafletMap = (
+  rectangleToMarkers: (rectangle: Polyline) => Promise<Marker[] | null>,
+) => {
   const [rectangle, setRectangle] = useState<Polyline | null>(null);
-  const [drawHandler, setDrawHandler] = useState<L.Draw.Rectangle | null>(null)
+  const [markers, setMarkers] = useState<Marker[] | null>(null);
+  const [drawHandler, setDrawHandler] = useState<L.Draw.Rectangle | null>(null);
   const mapRef = useRef<L.DrawMap | null>(null);
   const drawnItemsRef = useRef<L.FeatureGroup | null>(null);
   const drawControlRef = useRef<L.Control.Draw | null>(null);
@@ -51,9 +65,16 @@ export const useLeafletMap = () => {
     });
     map.addControl(drawControl);
     drawControlRef.current = drawControl;
-    map.on("draw:created", (e: LeafletEvent) => {
-      drawnItemsRef.current!.addLayer(e.layer);
-      setRectangle(e.layer);
+    map.on("draw:created", async (e: LeafletEvent) => {
+      const rectangle: Polyline = e.layer;
+      drawnItemsRef.current!.addLayer(rectangle);
+      setRectangle(rectangle);
+      const markers = await rectangleToMarkers(rectangle);
+      if (markers) {
+        markers.forEach((marker) => marker.addTo(map));
+        setMarkers(markers);
+      }
+
       setDrawHandler(null);
     });
     return () => {
@@ -64,16 +85,21 @@ export const useLeafletMap = () => {
   const toggleDrawing = () => {
     drawnItemsRef.current!.clearLayers();
     if (drawHandler) {
-      drawHandler.disable()
+      drawHandler.disable();
       setDrawHandler(null);
     } else if (!rectangle) {
       const drawHandler = new L.Draw.Rectangle(mapRef.current!);
-      setDrawHandler(drawHandler)
+      setDrawHandler(drawHandler);
       drawHandler.enable();
+    }
+    if (markers) {
+      markers.forEach((marker) => marker.remove());
+      setMarkers(null);
     }
     setRectangle(null);
   };
-  const isDrawing = !!drawHandler
+
+  const isDrawing = !!drawHandler;
 
   return {
     rectangle,

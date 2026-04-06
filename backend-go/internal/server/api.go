@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -33,6 +34,7 @@ func setupRoutes() *gin.Engine {
 			AllowMethods: []string{"GET"},
 		}))
 	}
+	engine.GET("/api/points", getPoints)
 	engine.GET("/api/gpx", getGPX)
 	engine.GET("/api/git-tag", getGitTag)
 	engine.Static("/site", "../frontend/dist")
@@ -58,11 +60,35 @@ func getQuery(c *gin.Context, key string) string {
 	return value
 }
 
-func getGPX(c *gin.Context) {
+func getFeatureCollection(c *gin.Context) *scrapper.FeatureCollection {
 	swLat, _ := strconv.ParseFloat(getQuery(c, "SouthWest.Latitude"), 64)
 	swLon, _ := strconv.ParseFloat(getQuery(c, "SouthWest.Longitude"), 64)
 	neLat, _ := strconv.ParseFloat(getQuery(c, "NorthEast.Latitude"), 64)
 	neLon, _ := strconv.ParseFloat(getQuery(c, "NorthEast.Longitude"), 64)
+
+	swPoint := scrapper.Point{swLon, swLat}
+	nePoint := scrapper.Point{neLon, neLat}
+	bbox := scrapper.BoundingBox{
+		SouthWest: swPoint,
+		NorthEast: nePoint,
+	}
+	fmt.Printf("bbox: %s\n", bbox)
+	return scrapper.GetFeatureCollection(bbox, nil)
+
+}
+
+func getPoints(c *gin.Context) {
+	featureCollection := getFeatureCollection(c)
+	bytes, err := json.Marshal(featureCollection)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.Header("Content-Type", "application/json")
+	c.Data(200, "application/json", bytes)
+}
+
+func getGPX(c *gin.Context) {
 
 	if c.Errors != nil {
 		var errors []string
@@ -72,16 +98,7 @@ func getGPX(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"errors": errors})
 		return
 	}
-
-	swPoint := scrapper.Point{swLon, swLat}
-	nePoint := scrapper.Point{neLon, neLat}
-	bbox := scrapper.BoundingBox{
-		SouthWest: swPoint,
-		NorthEast: nePoint,
-	}
-	fmt.Printf("bbox: %s\n", bbox)
-
-	featureCollection := scrapper.GetFeatureCollection(bbox, nil)
+	featureCollection := getFeatureCollection(c)
 	scrapper.EnrichFeatureCollection(featureCollection, nil)
 
 	gpxBytes, err := scrapper.ExportFeatureCollection(featureCollection)

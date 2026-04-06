@@ -28,7 +28,7 @@ export const MapControls = ({
         endIcon={isDrawn || isDrawing ? <ClearIcon /> : <DrawIcon />}
         variant="contained"
       >
-        {isDrawn ? "Clear" : (isDrawing ? "Cancel" : "Draw")}
+        {isDrawn ? "Clear" : isDrawing ? "Cancel" : "Draw"}
       </Button>
       <Button
         onClick={onDownloadGpx}

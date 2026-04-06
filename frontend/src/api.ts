@@ -1,26 +1,37 @@
+// hand written code that should ideally be generated from backend-go/internal/server/api.go
 import type { BoundingBox } from "./types/coordinates";
-import axios from "axios";
+import type { FeatureCollection } from "./types/points";
+import { boundingBoxToQueryParams } from "./utils";
 import type { AxiosResponse } from "axios";
-
-function boundingBoxToQueryParams(boundingBox: BoundingBox): string {
-  return `SouthWest.Latitude=${boundingBox.southWest.lat}&SouthWest.Longitude=${boundingBox.southWest.lng}&NorthEast.Latitude=${boundingBox.northEast.lat}&NorthEast.Longitude=${boundingBox.northEast.lng}`;
-}
+import axios from "axios";
 
 function BoundingBoxToFileName(boundingBox: BoundingBox): string {
   return `refugenavigator_export_${boundingBox.southWest.lat.toFixed(3)}_${boundingBox.southWest.lng.toFixed(3)}_${boundingBox.northEast.lat.toFixed(3)}_${boundingBox.northEast.lng.toFixed(3)}.gpx`;
 }
 
-function getBaseUrl(): string {
-  if (import.meta.env.MODE === "development") {
-    return "http://127.0.0.1:8080";
-  }
-  return "";
+function getApiUrl(): string {
+  const baseUrl =
+    import.meta.env.MODE === "development" ? "http://127.0.0.1:8080" : "";
+  return baseUrl + "/api";
+}
+
+export async function getPoints(
+  boundingBox: BoundingBox,
+): Promise<FeatureCollection> {
+  const response = await axios.get<FeatureCollection>(
+    `${getApiUrl()}/points?${boundingBoxToQueryParams(boundingBox)}`,
+    {
+      headers: {
+        Accept: "application/json",
+      },
+    },
+  );
+  return response.data;
 }
 
 export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
-  const baseUrl = getBaseUrl();
   const response: AxiosResponse<Blob> = await axios.get(
-    `${baseUrl}/api/gpx?${boundingBoxToQueryParams(boundingBox)}`,
+    `${getApiUrl()}/gpx?${boundingBoxToQueryParams(boundingBox)}`,
     {
       responseType: "blob",
       headers: {
@@ -42,9 +53,6 @@ export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
 }
 
 export async function getGitTag(): Promise<string> {
-  const baseUrl = getBaseUrl();
-  const response: AxiosResponse<{ tag: string }> = await axios.get(
-    `${baseUrl}/api/git-tag`,
-  );
+  const response = await axios.get<{ tag: string }>(`${getApiUrl()}/git-tag`);
   return response.data.tag;
 }
