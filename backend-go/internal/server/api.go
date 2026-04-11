@@ -15,6 +15,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func getMode() string {
+	return os.Getenv("GIN_MODE")
+}
+func getHost() string {
+	mode := getMode()
+	if mode != "release" {
+		// for hot reload with air
+		return "127.0.0.1"
+	}
+	return ""
+}
+
 func getPort() string {
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -27,7 +39,8 @@ func setupRoutes() *gin.Engine {
 	fmt.Println("Setting up routes")
 	defer func() { fmt.Println("Routes set up") }()
 	engine := gin.Default()
-	if mode := os.Getenv("GIN_MODE"); mode != "release" {
+	mode := getMode()
+	if mode != "release" {
 		// for local dev with yarn run dev, could be optimized by removing it from prod docker
 		engine.Use(cors.New(cors.Config{
 			AllowOrigins: []string{"http://127.0.0.1:5173"},
@@ -46,7 +59,7 @@ func setupRoutes() *gin.Engine {
 
 func Run() {
 	engine := setupRoutes()
-	if err := engine.Run(":" + getPort()); err != nil {
+	if err := engine.Run(getHost() + ":" + getPort()); err != nil {
 		log.Fatal(err)
 	}
 }

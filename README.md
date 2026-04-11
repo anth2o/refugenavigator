@@ -35,7 +35,8 @@ Pull requests are welcome! To get started:
 ```bash
 cd backend-go
 go mod tidy
-go run main.go
+go install ./...
+air # for hot reloading
 ```
 
 ### Frontend (React)
