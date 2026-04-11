@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -35,6 +36,9 @@ func getPort() string {
 	return port
 }
 
+const staticPath = "../static/"
+const staticUrl = "/static"
+
 func setupRoutes() *gin.Engine {
 	fmt.Println("Setting up routes")
 	defer func() { fmt.Println("Routes set up") }()
@@ -48,9 +52,11 @@ func setupRoutes() *gin.Engine {
 		}))
 	}
 	engine.GET("/api/points", getPoints)
-	engine.GET("/api/gpx", getGPX)
+	engine.GET("/api/gpx/download", sendGpxFile)
+	engine.GET("/api/gpx/static", sendGpxStaticUrl)
 	engine.GET("/api/git-tag", getGitTag)
 	engine.Static("/site", "../frontend/dist")
+	engine.Static(staticUrl, staticPath)
 	engine.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusPermanentRedirect, "/site")
 	})
@@ -73,7 +79,7 @@ func getQuery(c *gin.Context, key string) string {
 	return value
 }
 
-func getFeatureCollection(c *gin.Context) *scrapper.FeatureCollection {
+func getFeatureCollection(c *gin.Context) (scrapper.BoundingBox, *scrapper.FeatureCollection) {
 	swLat, _ := strconv.ParseFloat(getQuery(c, "SouthWest.Latitude"), 64)
 	swLon, _ := strconv.ParseFloat(getQuery(c, "SouthWest.Longitude"), 64)
 	neLat, _ := strconv.ParseFloat(getQuery(c, "NorthEast.Latitude"), 64)
@@ -88,9 +94,9 @@ func getFeatureCollection(c *gin.Context) *scrapper.FeatureCollection {
 
 	if bbox.Area() >= 1 { // this value was chosen so that the response time from refuges.info API is almost instantaneous
 		c.Error(errors.New("Area is too large: try selecting a smaller one."))
-		return nil
+		return bbox, nil
 	}
-	return scrapper.GetFeatureCollection(bbox, nil)
+	return bbox, scrapper.GetFeatureCollection(bbox, nil)
 
 }
 
@@ -105,7 +111,7 @@ func returnGinErrors(c *gin.Context) {
 }
 
 func getPoints(c *gin.Context) {
-	featureCollection := getFeatureCollection(c)
+	_, featureCollection := getFeatureCollection(c)
 	if featureCollection != nil {
 		bytes, err := json.Marshal(featureCollection)
 		if err == nil {
@@ -119,22 +125,53 @@ func getPoints(c *gin.Context) {
 	returnGinErrors(c)
 }
 
-func getGPX(c *gin.Context) {
-	featureCollection := getFeatureCollection(c)
-	if featureCollection != nil {
-		scrapper.EnrichFeatureCollection(featureCollection, nil)
-		gpxBytes, err := scrapper.ExportFeatureCollection(featureCollection)
-		if err == nil {
-
-			c.Header("Content-Type", "application/gpx+xml")
-			c.Header("Content-Disposition", "attachment; filename=route.gpx")
-			c.Data(200, "application/gpx+xml", gpxBytes)
-		} else {
-			c.Error(err)
-		}
-
+func getGpxBytes(c *gin.Context) (scrapper.BoundingBox, []byte) {
+	bbox, featureCollection := getFeatureCollection(c)
+	if featureCollection == nil {
+		returnGinErrors(c)
+		return bbox, nil
 	}
-	returnGinErrors(c)
+	scrapper.EnrichFeatureCollection(featureCollection, nil)
+	gpxBytes, err := scrapper.ExportFeatureCollection(featureCollection)
+	if err != nil {
+		c.Error(err)
+		returnGinErrors(c)
+		return bbox, nil
+	}
+	return bbox, gpxBytes
+}
+
+func sendGpxFile(c *gin.Context) {
+	_, gpxBytes := getGpxBytes(c)
+	c.Header("Content-Type", "application/gpx+xml")
+	c.Header("Content-Disposition", "attachment; filename=route.gpx")
+	c.Data(200, "application/gpx+xml", gpxBytes)
+
+}
+
+func sendGpxStaticUrl(c *gin.Context) {
+	// gpxsURL, err := getGpxUrl(c.Request.URL.String())
+	// if err != nil {
+	// 	c.Error(err)
+	// 	returnGinErrors(c)
+	// 	return
+	// }
+	bbox, gpxBytes := getGpxBytes(c)
+	if gpxBytes == nil {
+		returnGinErrors(c)
+		return
+	}
+	fileName := filepath.Join("gpx", bbox.String()+".gpx")
+	filePath := filepath.Join(staticPath, fileName)
+	if err := WriteFile(gpxBytes, filePath); err != nil {
+		c.Error(err)
+		returnGinErrors(c)
+		return
+	}
+	// https://manuels.iphigen.ie/fr/article/imports-gpx-iphigenie-ios-12d3iji/#3-importer-directement-un-fichier-qui-se-trouve-sur-le-net
+	fileUrl := "http://" + filepath.Join(c.Request.Host, staticUrl, fileName)
+	fmt.Println(fileUrl)
+	c.JSON(http.StatusOK, gin.H{"url": fileUrl})
 }
 
 func getGitTag(c *gin.Context) {

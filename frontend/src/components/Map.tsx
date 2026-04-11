@@ -1,4 +1,4 @@
-import { downloadGpx, getPoints } from "../api";
+import { getPoints, redirectGpxUrl } from "../api";
 import { useLeafletMap } from "../hooks/useLeafletMap";
 import type { FeatureCollection } from "../types/points";
 import { rectangleToBoundingBox } from "../utils";
@@ -65,7 +65,7 @@ export const Map = ({ className }: { className?: string }) => {
           onDownloadGpx={async () => {
             if (!rectangle) return;
             setWaitingForGpx(true);
-            await downloadGpx(rectangleToBoundingBox(rectangle));
+            await redirectGpxUrl(rectangleToBoundingBox(rectangle));
             setWaitingForGpx(false);
             setDialogOpen(true);
           }}

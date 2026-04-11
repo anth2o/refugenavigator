@@ -9,10 +9,12 @@ function BoundingBoxToFileName(boundingBox: BoundingBox): string {
   return `refugenavigator_export_${boundingBox.southWest.lat.toFixed(3)}_${boundingBox.southWest.lng.toFixed(3)}_${boundingBox.northEast.lat.toFixed(3)}_${boundingBox.northEast.lng.toFixed(3)}.gpx`;
 }
 
+function getBaseUrl(): string {
+  return import.meta.env.MODE === "development" ? "http://127.0.0.1:8080" : "";
+}
+
 function getApiUrl(): string {
-  const baseUrl =
-    import.meta.env.MODE === "development" ? "http://127.0.0.1:8080" : "";
-  return baseUrl + "/api";
+  return getBaseUrl() + "/api";
 }
 
 export async function getPoints(
@@ -31,7 +33,7 @@ export async function getPoints(
 
 export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
   const response: AxiosResponse<Blob> = await axios.get(
-    `${getApiUrl()}/gpx?${boundingBoxToQueryParams(boundingBox)}`,
+    `${getApiUrl()}/gpx/download?${boundingBoxToQueryParams(boundingBox)}`,
     {
       responseType: "blob",
       headers: {
@@ -50,6 +52,18 @@ export async function downloadGpx(boundingBox: BoundingBox): Promise<void> {
   a.click();
   window.URL.revokeObjectURL(url);
   document.body.removeChild(a);
+}
+
+export async function redirectGpxUrl(boundingBox: BoundingBox): Promise<void> {
+  const response: AxiosResponse<{ url: string }> = await axios.get(
+    `${getApiUrl()}/gpx/static?${boundingBoxToQueryParams(boundingBox)}`,
+    {
+      headers: {
+        Accept: "application/text",
+      },
+    },
+  );
+  window.open(response.data.url, "_blank");
 }
 
 export async function getGitTag(): Promise<string> {

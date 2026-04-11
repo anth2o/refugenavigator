@@ -1,0 +1,28 @@
+info:
+  name: Get Gpx Url
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: http://127.0.0.1:8080/api/gpx/static?SouthWest.Latitude=44.63427120237535&SouthWest.Longitude=5.119628906250001&NorthEast.Latitude=44.8372319978184&NorthEast.Longitude=5.495910644531251
+  params:
+    - name: SouthWest.Latitude
+      value: "44.63427120237535"
+      type: query
+    - name: SouthWest.Longitude
+      value: "5.119628906250001"
+      type: query
+    - name: NorthEast.Latitude
+      value: "44.8372319978184"
+      type: query
+    - name: NorthEast.Longitude
+      value: "5.495910644531251"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
