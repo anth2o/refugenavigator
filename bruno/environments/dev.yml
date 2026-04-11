@@ -1,0 +1,4 @@
+name: dev
+variables:
+  - name: SERVER_URL
+    value: https://dev.refugenavigator.com/api

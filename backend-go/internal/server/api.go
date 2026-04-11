@@ -169,7 +169,7 @@ func sendGpxStaticUrl(c *gin.Context) {
 		return
 	}
 	// https://manuels.iphigen.ie/fr/article/imports-gpx-iphigenie-ios-12d3iji/#3-importer-directement-un-fichier-qui-se-trouve-sur-le-net
-	fileUrl := "http://" + filepath.Join(c.Request.Host, staticUrl, fileName)
+	fileUrl := "https://" + filepath.Join(c.Request.Host, staticUrl, fileName)
 	fmt.Println(fileUrl)
 	c.JSON(http.StatusOK, gin.H{"url": fileUrl})
 }

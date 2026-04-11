@@ -46,3 +46,12 @@ cd frontend
 yarn
 yarn dev
 ```
+
+### Docker
+
+There is no hot reload or volumes configured to develop interactively in Docker (yet ?)
+
+```bash
+docker build -t refugenavigator .
+docker run -p 8080:8080 refugenavigator
+```

@@ -24,6 +24,7 @@ COPY --from=backend-builder /app/main /app/backend-go/main
 COPY --from=frontend-builder /app/dist /app/frontend/dist
 COPY --from=git-tag /app/.git-tag /app/.git-tag
 WORKDIR /app/backend-go
+RUN mkdir -p ../static/gpx
 ENV GIN_MODE=release
 ENV PORT=8080
 CMD ["./main"]
